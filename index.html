@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eggly – Teigene Egg</title>
+<meta name="theme-color" content="#060a13">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eggly">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+  --bg:#060a13; --bg-top:#101a2e; --card:#121a2b; --card2:#0f1726;
+  --line:rgba(255,255,255,.06); --line2:rgba(255,255,255,.10);
+  --text:#eef2f8; --muted:#8a94a8; --muted2:#5d6678;
+  --cyan:#26d3ef; --gold:#f5a623; --amber:#fbbf24;
+  --blue:#3b82f6; --purple:#a855f7; --green:#10b981;
+  --sat:env(safe-area-inset-top); --sab:env(safe-area-inset-bottom);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body{display:flex;justify-content:center}
+.app{width:100%;max-width:480px;min-height:100vh;background:
+   radial-gradient(120% 50% at 80% 0%, rgba(245,166,35,.10), transparent 60%),
+   radial-gradient(120% 40% at 0% 0%, rgba(38,211,239,.10), transparent 55%),
+   linear-gradient(180deg,var(--bg-top) 0%, var(--bg) 22%);
+   padding:calc(8px + var(--sat)) 16px calc(120px + var(--sab));position:relative}
+.top{display:flex;align-items:center;gap:14px;padding:14px 4px 18px}
+.logo{width:54px;height:54px;border-radius:14px;background:#0a0f1a;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:26px}
+.brand{font-size:30px;font-weight:800;letter-spacing:1px}
+.toggle{margin-left:auto;width:54px;height:54px;border-radius:14px;background:#0e1626;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:24px}
+.divider{height:1px;background:var(--line);margin:0 4px}
+.placewrap{display:flex;gap:12px;margin:18px 0 6px}
+.place{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.place .pin{color:var(--gold);font-size:22px}
+.place .pname{font-size:20px;font-weight:700}
+.place .psub{font-size:13px;color:var(--muted);margin-top:2px}
+.star{width:64px;border-radius:16px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold)}
+.sec{display:flex;align-items:center;gap:10px;margin:26px 4px 14px;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:2px}
+.sec .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.sec .ic{font-size:16px}
+.sec .rule{flex:1;height:1px;background:var(--line)}
+.hero{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hcard{border-radius:18px;padding:16px 10px 18px;text-align:center;border:1px solid var(--line);overflow:hidden}
+.hcard .ic{font-size:24px;display:block;margin-bottom:8px}
+.hcard .lbl{font-size:12px;color:var(--muted);font-weight:600}
+.hcard .val{font-size:25px;font-weight:800;margin-top:7px}
+.hcard .unit{font-size:13px;color:var(--muted);font-weight:600}
+.hcard .sub{font-size:11px;color:var(--muted2);margin-top:4px}
+.tint-cyan{background:linear-gradient(180deg,rgba(38,211,239,.12),var(--card2))}
+.tint-gold{background:linear-gradient(180deg,rgba(245,166,35,.14),var(--card2))}
+.tint-green{background:linear-gradient(180deg,rgba(16,185,129,.13),var(--card2))}
+.c-cyan{color:var(--cyan)} .c-gold{color:var(--gold)} .c-green{color:var(--green)}
+.c-blue{color:var(--blue)} .c-purple{color:var(--purple)} .c-amber{color:var(--amber)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}
+.panel .ph{display:flex;align-items:center;gap:10px}
+.panel .ph .t{font-size:18px;font-weight:800}
+.panel .ph .pill{margin-left:auto;background:rgba(38,211,239,.14);color:var(--cyan);font-weight:800;font-size:15px;padding:6px 12px;border-radius:10px}
+.panel .psub{color:var(--muted);font-size:13px;margin-top:3px}
+.chartbox{margin-top:8px}
+.xlabels{display:flex;justify-content:space-between;margin-top:6px;color:var(--muted2);font-size:11px;padding:0 4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 8px;text-align:center}
+.kpi .ic{font-size:20px}
+.kpi .lbl{font-size:11px;color:var(--muted);margin-top:7px;font-weight:600}
+.kpi .val{font-size:19px;font-weight:800;margin-top:6px}
+.kpi .u{font-size:12px;color:var(--muted)}
+.mixbar{height:18px;border-radius:9px;overflow:hidden;display:flex;margin:14px 2px 10px;border:1px solid var(--line)}
+.mixbar div{height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px 16px;margin:6px 2px 2px}
+.legend .li{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+.legend .sw{width:11px;height:11px;border-radius:3px}
+.legend b{color:var(--text);font-weight:700}
+.totrow{display:flex;justify-content:space-between;gap:10px}
+.totrow .tcell{flex:1;text-align:center}
+.totrow .tv{font-size:21px;font-weight:800}
+.totrow .tl{font-size:11px;color:var(--muted);margin-top:3px}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:linear-gradient(180deg,rgba(6,10,19,.4),rgba(6,10,19,.96));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 0 calc(14px + var(--sab))}
+.nav .ni{flex:1;max-width:160px;text-align:center;color:var(--muted2);font-size:12px;font-weight:600}
+.nav .ni .nic{font-size:22px;display:block;margin-bottom:4px}
+.nav .ni.active{color:var(--gold)}
+.foot{text-align:center;color:var(--muted2);font-size:11px;margin:22px 0 4px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="logo">🥚</div><div class="brand">EGGLY</div><div class="toggle">🌤️</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="placewrap">
+    <div class="place"><div class="pin">📍</div>
+      <div><div class="pname" id="place">Teigene Egg · Hareid</div><div class="psub" id="date">Siste avregning · –</div></div></div>
+    <div class="star">★</div>
+  </div>
+
+  <div class="sec"><span class="dot"></span><span class="ic">🥚</span> EGG <span class="rule"></span></div>
+  <div class="hero">
+    <div class="hcard tint-cyan"><span class="ic c-cyan">⚖️</span><div class="lbl">Siste eggvekt</div><div class="val c-cyan" id="h_vekt">–<span class="unit"> g</span></div><div class="sub">snitt/egg</div></div>
+    <div class="hcard tint-gold"><span class="ic c-gold">💰</span><div class="lbl">Siste målpris</div><div class="val c-gold" id="h_mal">–</div><div class="sub">kr/brett · gulv</div></div>
+    <div class="hcard tint-green"><span class="ic c-green">📦</span><div class="lbl">Pall levert</div><div class="val c-green" id="h_pall">–</div><div class="sub">totalt M+L</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><span class="ic c-cyan">📈</span><span class="t">Eggvekt-utvikling</span><span class="pill" id="wPill">–</span></div>
+    <div class="psub">Snittvekt per egg, hele leveransen</div>
+    <div class="chartbox"><svg id="chartW" viewBox="0 0 420 170" preserveAspectRatio="none" style="width:100%;height:170px"></svg></div>
+    <div class="xlabels" id="xW"></div>
+  </div>
+
+  <div class="sec"><span class="dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold)"></span><span class="ic">📊</span> NØKKELTALL · SISTE LEVERANSE <span class="rule"></span></div>
+  <div class="grid">
+    <div class="kpi"><div class="ic c-blue">🥚</div><div class="lbl">Antall egg</div><div class="val" id="k_antall">–</div></div>
+    <div class="kpi"><div class="ic c-gold">💵</div><div class="lbl">Bruttobeløp</div><div class="val" id="k_brutto">–<span class="u"> kr</span></div></div>
+    <div class="kpi"><div class="ic c-cyan">🏷️</div><div class="lbl">Snittpris</div><div class="val" id="k_pris">–<span class="u"> kr/egg</span></div></div>
+    <div class="kpi"><div class="ic c-purple">⚓</div><div class="lbl">Kostbasis M+L</div><div class="val" id="k_kost">–<span class="u"> kr/egg</span></div></div>
+    <div class="kpi"><div class="ic c-green">⚖️</div><div class="lbl">M+L samlet vekt</div><div class="val" id="k_mlvekt">–<span class="u"> g</span></div></div>
+    <div class="kpi"><div class="ic c-cyan">📦</div><div class="lbl">Brett denne uke</div><div class="val" id="k_brett">–</div></div>
+  </div>
+
+  <div class="sec"><span class="dot" style="background:var(--purple);box-shadow:0 0 10px var(--purple)"></span><span class="ic">🧩</span> STØRRELSESMIKS · SISTE <span class="rule"></span></div>
+  <div class="panel"><div class="mixbar" id="mixbar"></div><div class="legend" id="legend"></div></div>
+
+  <div class="sec"><span class="dot"></span><span class="ic">📈</span> PRISUTVIKLING <span class="rule"></span></div>
+  <div class="panel">
+    <div class="ph"><span class="ic c-cyan">🏷️</span><span class="t">Snittpris per egg</span><span class="pill" id="pPill">–</span></div>
+    <div class="psub">Inkl. tilskudd og tillegg (kr/egg)</div>
+    <div class="chartbox"><svg id="chartP" viewBox="0 0 420 160" preserveAspectRatio="none" style="width:100%;height:160px"></svg></div>
+    <div class="xlabels" id="xP"></div>
+  </div>
+
+  <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">Σ</span> TOTALT LEVERT <span class="rule"></span></div>
+  <div class="panel">
+    <div class="totrow">
+      <div class="tcell"><div class="tv c-cyan" id="t_egg">–</div><div class="tl">egg</div></div>
+      <div class="tcell"><div class="tv c-gold" id="t_brutto">–</div><div class="tl">kr brutto</div></div>
+    </div>
+    <div class="divider" style="margin:16px 0"></div>
+    <div class="totrow">
+      <div class="tcell"><div class="tv c-green" id="t_brett">–</div><div class="tl">brett M+L</div></div>
+      <div class="tcell"><div class="tv c-green" id="t_pall">–</div><div class="tl">paller M+L</div></div>
+    </div>
+  </div>
+
+  <div class="foot">Kilde: Eggeleveranser Nortura · oppdatert <span id="upd"></span></div>
+</div>
+
+<div class="nav">
+  <div class="ni active"><span class="nic">🏠</span>Oversikt</div>
+  <div class="ni"><span class="nic">🥚</span>Egg</div>
+  <div class="ni"><span class="nic">🌾</span>Fôr</div>
+</div>
+
+<script>
+/* ====== DATA (oppdater dette ved ny avregning) ====== */
+const DATA = {
+  place:"Teigene Egg · Hareid",
+  oppdatert:"30.06.2026",
+  leveranser:[
+    {dato:"05.06", vekt:43.15, prisEgg:0.79, malBrett:null},
+    {dato:"10.06", vekt:45.66, prisEgg:0.95, malBrett:46.31},
+    {dato:"17.06", vekt:49.66, prisEgg:1.26, malBrett:46.22},
+    {dato:"24.06", vekt:52.22, prisEgg:1.42, malBrett:46.08}
+  ],
+  siste:{ datoLang:"24. jun 2026", antall:86400, brutto:122441, prisEgg:1.42,
+          kostbasis:1.54, mlVekt:56.4, brettUke:1259 },
+  pallTotalt:10.8,
+  totalt:{ egg:259200, brutto:314767, brett:2157, pall:10.8 },
+  miks:[["XL",0.5,"#00643c"],["L",1.5,"#1A7A52"],["M",42.2,"#4A9B73"],["S",51.1,"#82B89C"],["SI",3.6,"#f5a623"],["Øvrig",1.1,"#9AA0A6"]]
+};
+/* ==================================================== */
+const nf=(n,d=0)=>n.toLocaleString("nb-NO",{minimumFractionDigits:d,maximumFractionDigits:d});
+function smooth(p){if(p.length<2)return"";let d="M"+p[0][0]+","+p[0][1];for(let i=0;i<p.length-1;i++){const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||p[i+1];d+="C"+(b[0]+(c[0]-a[0])/6)+","+(b[1]+(c[1]-a[1])/6)+" "+(c[0]-(e[0]-b[0])/6)+","+(c[1]-(e[1]-b[1])/6)+" "+c[0]+","+c[1];}return d;}
+function area(id,data,opts){
+  const svg=document.getElementById(id);const H=+svg.getAttribute("viewBox").split(" ")[3];const W=420;
+  const pl=12,pr=16,pt=26,pb=16;const mn=Math.min(...data)*0.95,mx=Math.max(...data)*1.05;
+  const x=i=>pl+(W-pl-pr)*i/(data.length-1),y=v=>pt+(H-pt-pb)*(1-(v-mn)/(mx-mn));
+  const pts=data.map((v,i)=>[x(i),y(v)]);const col=opts.color;const ln=smooth(pts);
+  const ar=ln+" L"+pts.at(-1)[0]+","+(H-pb)+" L"+pts[0][0]+","+(H-pb)+" Z";
+  let g=`<defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${col}" stop-opacity=".40"/><stop offset="100%" stop-color="${col}" stop-opacity=".02"/></linearGradient><filter id="f${id}"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  g+=`<path d="${ar}" fill="url(#g${id})"/><path d="${ln}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#f${id})"/>`;
+  pts.forEach((p,i)=>{const last=i===pts.length-1;g+=`<circle cx="${p[0]}" cy="${p[1]}" r="${last?5:3.2}" fill="${last?col:'#0b1220'}" stroke="${col}" stroke-width="2"/>`;if(last)g+=`<text x="${p[0]}" y="${p[1]-12}" text-anchor="end" fill="${col}" font-size="15" font-weight="800">${opts.last}</text>`;});
+  g+=`<text x="${pts[0][0]+2}" y="${pts[0][1]-10}" fill="#5d6678" font-size="12" font-weight="700">${opts.first}</text>`;
+  svg.innerHTML=g;
+}
+function fill(){
+  const L=DATA.leveranser, s=DATA.siste;
+  document.getElementById("place").textContent=DATA.place;
+  document.getElementById("date").textContent="Siste avregning · "+s.datoLang;
+  document.getElementById("upd").textContent=DATA.oppdatert;
+  document.getElementById("h_vekt").innerHTML=nf(L.at(-1).vekt,1)+'<span class="unit"> g</span>';
+  document.getElementById("h_mal").textContent=nf(L.at(-1).malBrett,2);
+  document.getElementById("h_pall").textContent=nf(DATA.pallTotalt,1);
+  document.getElementById("k_antall").textContent=nf(s.antall);
+  document.getElementById("k_brutto").innerHTML=nf(s.brutto)+'<span class="u"> kr</span>';
+  document.getElementById("k_pris").innerHTML=nf(s.prisEgg,2)+'<span class="u"> kr/egg</span>';
+  document.getElementById("k_kost").innerHTML=nf(s.kostbasis,2)+'<span class="u"> kr/egg</span>';
+  document.getElementById("k_mlvekt").innerHTML=nf(s.mlVekt,1)+'<span class="u"> g</span>';
+  document.getElementById("k_brett").textContent=nf(s.brettUke);
+  document.getElementById("t_egg").textContent=nf(DATA.totalt.egg);
+  document.getElementById("t_brutto").textContent=nf(DATA.totalt.brutto);
+  document.getElementById("t_brett").textContent=nf(DATA.totalt.brett);
+  document.getElementById("t_pall").textContent=nf(DATA.totalt.pall,1);
+  document.getElementById("wPill").textContent=nf(L.at(-1).vekt,1)+" g";
+  document.getElementById("pPill").textContent=nf(L.at(-1).prisEgg,2)+" kr";
+  const xs=L.map(l=>`<span>${l.dato}</span>`).join("");
+  document.getElementById("xW").innerHTML=xs; document.getElementById("xP").innerHTML=xs;
+  area("chartW",L.map(l=>l.vekt),{color:"#26d3ef",last:nf(L.at(-1).vekt,1)+" g",first:nf(L[0].vekt,1)+" g"});
+  area("chartP",L.map(l=>l.prisEgg),{color:"#26d3ef",last:nf(L.at(-1).prisEgg,2)+" kr",first:nf(L[0].prisEgg,2)+" kr"});
+  document.getElementById("mixbar").innerHTML=DATA.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join("");
+  document.getElementById("legend").innerHTML=DATA.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join("");
+}
+fill();
+</script>
+</body>
+</html>
