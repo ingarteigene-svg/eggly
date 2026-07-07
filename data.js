@@ -80,7 +80,7 @@ window.EGGLY_DATA = {
   ]
  },
  "for": {
-  "sisteDatoLang": "1. jul 2026",
+  "sisteDatoLang": "8. jul 2026",
   "dev": [
    {
     "dato": "18.05",
@@ -116,6 +116,11 @@ window.EGGLY_DATA = {
     "dato": "01.07",
     "krKg": 5.696,
     "kvantum": 13000
+   },
+   {
+    "dato": "08.07",
+    "krKg": 5.696,
+    "kvantum": 13000
    }
   ],
   "siste": {
@@ -129,10 +134,10 @@ window.EGGLY_DATA = {
    "rabatter": -7748
   },
   "totalt": {
-   "kvantum": 84500,
-   "netto": 477528,
-   "krKg": 5.651,
-   "leveranser": 7
+   "kvantum": 97500,
+   "netto": 551576,
+   "krKg": 5.657,
+   "leveranser": 8
   }
  }
 };
