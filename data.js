@@ -1,8 +1,8 @@
 window.EGGLY_DATA = {
- "oppdatert": "07.07.2026",
+ "oppdatert": "09.07.2026",
  "place": "Teigene Egg · Hareid",
  "egg": {
-  "sisteDatoLang": "24. jun 2026",
+  "sisteDatoLang": "1. jul 2026",
   "dev": [
    {
     "dato": "05.06",
@@ -27,54 +27,60 @@ window.EGGLY_DATA = {
     "vekt": 52.22,
     "pris": 1.4171,
     "mal": 46.08
+   },
+   {
+    "dato": "01.07",
+    "vekt": 53.67,
+    "pris": 1.4927,
+    "mal": 45.52
    }
   ],
   "siste": {
    "antall": 86400,
-   "brutto": 122441,
-   "prisEgg": 1.42,
-   "kostbasis": 1.54,
-   "mlVekt": 56.4,
-   "brettUke": 1259,
-   "malBrett": 46.08,
-   "vekt": 52.2
+   "brutto": 128966,
+   "prisEgg": 1.49,
+   "kostbasis": 1.52,
+   "mlVekt": 55.7,
+   "brettUke": 1646,
+   "malBrett": 45.52,
+   "vekt": 53.7
   },
-  "pallTotalt": 10.8,
+  "pallTotalt": 19.0,
   "totalt": {
-   "egg": 259200,
-   "brutto": 314767,
-   "brett": 2157,
-   "pall": 10.8
+   "egg": 345600,
+   "brutto": 443733,
+   "brett": 3803,
+   "pall": 19.0
   },
   "miks": [
    [
     "XL",
-    0.5,
+    0.0,
     "#00643c"
    ],
    [
     "L",
-    1.5,
+    0.3,
     "#1A7A52"
    ],
    [
     "M",
-    42.2,
+    56.8,
     "#4A9B73"
    ],
    [
     "S",
-    51.1,
+    38.9,
     "#82B89C"
    ],
    [
     "SI",
-    3.6,
+    0.5,
     "#f5a623"
    ],
    [
     "Øvrig",
-    1.2,
+    3.5,
     "#9AA0A6"
    ]
   ]
