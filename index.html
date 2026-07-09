@@ -139,9 +139,8 @@ body{display:flex;justify-content:center}
   <div class="ni" id="navFor"><span class="nic">🌾</span>Fôr</div>
 </div>
 
-<script src="data.js"></script>
 <script>
-const D=window.EGGLY_DATA||{};
+let D={};
 const nf=(n,d=0)=>(n==null?"–":Number(n).toLocaleString("nb-NO",{minimumFractionDigits:d,maximumFractionDigits:d}));
 const S=(id,html)=>{const e=document.getElementById(id);if(e)e.innerHTML=html;};
 function smooth(p){if(p.length<2)return"";let d="M"+p[0][0]+","+p[0][1];for(let i=0;i<p.length-1;i++){const a=p[i-1]||p[i],b=p[i],c=p[i+1],e=p[i+2]||p[i+1];d+="C"+(b[0]+(c[0]-a[0])/6)+","+(b[1]+(c[1]-a[1])/6)+" "+(c[0]-(e[0]-b[0])/6)+","+(c[1]-(e[1]-b[1])/6)+" "+c[0]+","+c[1];}return d;}
@@ -190,8 +189,10 @@ function tab(which){
  window.scrollTo(0,0);}
 document.getElementById("navEgg").onclick=()=>tab("egg");
 document.getElementById("navFor").onclick=()=>tab("for");
-S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
-renderEgg();renderFor();
+function init(){D=window.EGGLY_DATA||{};
+ S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
+ renderEgg();renderFor();}
+(function(){var s=document.createElement("script");s.src="data.js?t="+Date.now();s.onload=init;s.onerror=init;document.head.appendChild(s);})();
 </script>
 </body>
 </html>
