@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{--bg:#060a13;--bg-top:#101a2e;--card:#121a2b;--card2:#0f1726;--line:rgba(255,255,255,.06);--line2:rgba(255,255,255,.10);
---text:#eef2f8;--muted:#8a94a8;--muted2:#5d6678;--cyan:#26d3ef;--gold:#f5a623;--amber:#fbbf24;--blue:#3b82f6;--purple:#a855f7;--green:#10b981;
+--text:#eef2f8;--muted:#8a94a8;--muted2:#5d6678;--cyan:#26d3ef;--gold:#B38E00;--amber:#fbbf24;--blue:#3b82f6;--purple:#a855f7;--green:#33C27E;--bcg:#00643C;
 --sat:env(safe-area-inset-top);--sab:env(safe-area-inset-bottom)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
@@ -36,12 +36,12 @@ body{display:flex;justify-content:center}
 .hcard .ic{font-size:24px;display:block;margin-bottom:8px}.hcard .lbl{font-size:12px;color:var(--muted);font-weight:600}
 .hcard .val{font-size:24px;font-weight:800;margin-top:7px}.hcard .unit{font-size:13px;color:var(--muted);font-weight:600}.hcard .sub{font-size:11px;color:var(--muted2);margin-top:4px}
 .tint-cyan{background:linear-gradient(180deg,rgba(38,211,239,.12),var(--card2))}
-.tint-gold{background:linear-gradient(180deg,rgba(245,166,35,.14),var(--card2))}
-.tint-green{background:linear-gradient(180deg,rgba(16,185,129,.13),var(--card2))}
+.tint-gold{background:linear-gradient(180deg,rgba(179,142,0,.18),var(--card2))}
+.tint-green{background:linear-gradient(180deg,rgba(0,100,60,.22),var(--card2))}
 .c-cyan{color:var(--cyan)}.c-gold{color:var(--gold)}.c-green{color:var(--green)}.c-blue{color:var(--blue)}.c-purple{color:var(--purple)}.c-amber{color:var(--amber)}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}
 .panel .ph{display:flex;align-items:center;gap:10px}.panel .ph .t{font-size:18px;font-weight:800}
-.panel .ph .pill{margin-left:auto;background:rgba(38,211,239,.14);color:var(--cyan);font-weight:800;font-size:15px;padding:6px 12px;border-radius:10px}
+.panel .ph .pill{margin-left:auto;background:rgba(51,194,126,.16);color:var(--green);font-weight:800;font-size:15px;padding:6px 12px;border-radius:10px}
 .panel .psub{color:var(--muted);font-size:13px;margin-top:3px}
 .chartbox{margin-top:8px}.xlabels{display:flex;justify-content:space-between;margin-top:6px;color:var(--muted2);font-size:11px;padding:0 4px;flex-wrap:wrap}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
@@ -218,7 +218,7 @@ window.EGGLY_DATA = {
    [
     "SI",
     0.5,
-    "#f5a623"
+    "#B38E00"
    ],
    [
     "Øvrig",
@@ -318,8 +318,8 @@ function renderEgg(){const e=D.egg;if(!e)return;
  S("e_mlvekt",nf(e.siste.mlVekt,1)+'<span class="u"> g</span>');S("e_brett",nf(e.siste.brettUke));
  S("e_tegg",nf(e.totalt.egg));S("e_tbrutto",nf(e.totalt.brutto));S("e_tbrett",nf(e.totalt.brett));S("e_tpall",nf(e.totalt.pall,1));
  const xs=e.dev.map(d=>`<span>${d.dato}</span>`).join("");S("e_xw",xs);S("e_xp",xs);
- area("chartEW",e.dev.map(d=>d.vekt),{color:"#26d3ef",last:nf(e.dev.at(-1).vekt,1)+" g",first:nf(e.dev[0].vekt,1)+" g"});
- area("chartEP",e.dev.map(d=>d.pris),{color:"#26d3ef",last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr"});
+ area("chartEW",e.dev.map(d=>d.vekt),{color:"#33C27E",last:nf(e.dev.at(-1).vekt,1)+" g",first:nf(e.dev[0].vekt,1)+" g"});
+ area("chartEP",e.dev.map(d=>d.pris),{color:"#33C27E",last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr"});
  S("e_mixbar",e.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join(""));
  S("e_legend",e.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join(""));}
 function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").style.display="none";return;}
@@ -330,8 +330,8 @@ function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").styl
  S("f_rab",nf(f.siste.rabatter)+'<span class="u"> kr</span>');S("f_lev",nf(f.totalt.leveranser));
  S("f_tkv",nf(f.totalt.kvantum));S("f_tnet",nf(f.totalt.netto));S("f_tkrkg",nf(f.totalt.krKg,2));S("f_tlev",nf(f.totalt.leveranser));
  const xs=f.dev.map(d=>`<span>${d.dato}</span>`).join("");S("f_xp",xs);S("f_xk",xs);
- area("chartFP",f.dev.map(d=>d.krKg),{color:"#26d3ef",last:nf(f.dev.at(-1).krKg,2)+" kr",first:nf(f.dev[0].krKg,2)+" kr"});
- bars("chartFK",f.dev.map(d=>d.kvantum),{color:"#26d3ef",fmt:v=>nf(v)});}
+ area("chartFP",f.dev.map(d=>d.krKg),{color:"#33C27E",last:nf(f.dev.at(-1).krKg,2)+" kr",first:nf(f.dev[0].krKg,2)+" kr"});
+ bars("chartFK",f.dev.map(d=>d.kvantum),{color:"#33C27E",fmt:v=>nf(v)});}
 function tab(which){
  document.getElementById("tabEgg").classList.toggle("on",which==="egg");
  document.getElementById("tabFor").classList.toggle("on",which==="for");
