@@ -54,6 +54,22 @@ body{display:flex;justify-content:center}
 .nav .ni{flex:1;max-width:200px;text-align:center;color:var(--muted2);font-size:12px;font-weight:600;cursor:pointer}
 .nav .ni .nic{font-size:22px;display:block;margin-bottom:4px}.nav .ni.active{color:var(--gold)}
 .foot{text-align:center;color:var(--muted2);font-size:11px;margin:22px 0 4px}
+.xlabels.abs{display:block;position:relative;height:14px;padding:0}.xlabels.abs span{position:absolute;top:0;white-space:nowrap}
+.hit{cursor:pointer}
+.hrow{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:10px;overflow:hidden}
+.hhead{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer}
+.hhead .hd{font-size:16px;font-weight:800}.hhead .hs{font-size:12px;color:var(--muted);margin-top:2px}
+.hhead .hv{margin-left:auto;text-align:right}.hhead .hv b{font-size:16px;font-weight:800;display:block}
+.hhead .chev{color:var(--muted2);font-size:13px;transition:transform .2s}.hrow.open .chev{transform:rotate(90deg)}
+.dl{font-size:11.5px;font-weight:700}.dl.up{color:var(--green)}.dl.down{color:#f87171}.dl.flat{color:var(--muted2)}
+.hbody{display:none;padding:2px 16px 16px;border-top:1px solid var(--line)}.hrow.open .hbody{display:block}
+.hsub{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1.5px;margin:14px 0 6px}
+.htab{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.htab th{color:var(--muted2);font-weight:600;font-size:11px;text-align:right;padding:4px 0 4px 8px}
+.htab td{text-align:right;padding:5px 0 5px 8px;border-top:1px solid var(--line)}
+.htab th:first-child,.htab td:first-child{text-align:left;padding-left:0;color:var(--muted)}
+.htab tr.sum td{font-weight:800;color:var(--text);border-top:1px solid var(--line2)}
+.hnote{color:var(--muted2);font-size:12px;margin-top:12px}
 .tab{display:none}.tab.on{display:block}
 </style>
 </head>
@@ -76,7 +92,7 @@ body{display:flex;justify-content:center}
     <div class="panel"><div class="ph"><span class="ic c-cyan">📈</span><span class="t">Eggvekt-utvikling</span><span class="pill" id="e_wpill">–</span></div>
       <div class="psub">Snittvekt per egg, hele leveransen</div>
       <div class="chartbox"><svg id="chartEW" viewBox="0 0 420 170" preserveAspectRatio="none" style="width:100%;height:170px"></svg></div>
-      <div class="xlabels" id="e_xw"></div></div>
+      <div class="xlabels abs" id="e_xw"></div></div>
     <div class="sec"><span class="dot" style="background:var(--gold);box-shadow:0 0 10px var(--gold)"></span><span class="ic">📊</span> NØKKELTALL · SISTE <span class="rule"></span></div>
     <div class="grid">
       <div class="kpi"><div class="ic c-blue">🥚</div><div class="lbl">Antall egg</div><div class="val" id="e_antall">–</div></div>
@@ -92,7 +108,7 @@ body{display:flex;justify-content:center}
     <div class="panel"><div class="ph"><span class="ic c-cyan">🏷️</span><span class="t">Snittpris per egg</span><span class="pill" id="e_ppill">–</span></div>
       <div class="psub">Grønn: per levert egg · Gull stiplet: per produsert egg (inkl. lokalsalg)</div>
       <div class="chartbox"><svg id="chartEP" viewBox="0 0 420 160" preserveAspectRatio="none" style="width:100%;height:160px"></svg></div>
-      <div class="xlabels" id="e_xp"></div></div>
+      <div class="xlabels abs" id="e_xp"></div></div>
     <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">Σ</span> TOTALT LEVERT <span class="rule"></span></div>
     <div class="panel"><div class="totrow"><div class="tcell"><div class="tv c-cyan" id="e_tegg">–</div><div class="tl">egg</div></div><div class="tcell"><div class="tv c-gold" id="e_tbrutto">–</div><div class="tl">kr brutto</div></div></div>
       <div class="divider" style="margin:16px 0"></div>
@@ -131,17 +147,22 @@ body{display:flex;justify-content:center}
       <div class="totrow"><div class="tcell"><div class="tv c-gold" id="f_tkrkg">–</div><div class="tl">kr/kg vektet snitt</div></div><div class="tcell"><div class="tv c-green" id="f_tlev">–</div><div class="tl">leveranser</div></div></div></div>
   </div>
 
+  <!-- ============ HISTORIKK ============ -->
+  <div class="tab" id="tabHist">
+    <div class="sec"><span class="dot"></span><span class="ic">📋</span> AVREGNINGER <span class="rule"></span></div>
+    <div id="h_list"></div>
+  </div>
+
   <div class="foot">Kilde: Nortura + Felleskjøpet · oppdatert <span id="upd"></span></div>
 </div>
 
 <div class="nav">
   <div class="ni active" id="navEgg"><span class="nic">🥚</span>Egg</div>
+  <div class="ni" id="navHist"><span class="nic">📋</span>Historikk</div>
   <div class="ni" id="navFor"><span class="nic">🌾</span>Fôr</div>
 </div>
 
-<script>
-window.EGGLY_DATA = {"oppdatert":"12.08.2026","place":"Teigene Egg · Hareid","egg":{"sisteDatoLang":"5. aug 2026","dev":[{"dato":"05.06","vekt":43.15,"pris":0.7934,"prisProd":0.3195,"lokalEgg":16020,"mal":null},{"dato":"10.06","vekt":45.66,"pris":0.953,"prisProd":0.8169,"lokalEgg":10790,"mal":46.31},{"dato":"17.06","vekt":49.66,"pris":1.2552,"prisProd":1.0754,"lokalEgg":16250,"mal":46.22},{"dato":"24.06","vekt":52.22,"pris":1.4171,"prisProd":1.1973,"lokalEgg":15860,"mal":46.08},{"dato":"01.07","vekt":53.67,"pris":1.4927,"prisProd":1.2864,"lokalEgg":13850,"mal":45.52},{"dato":"08.07","vekt":54.85,"pris":1.5611,"prisProd":1.3343,"lokalEgg":16520,"mal":45.99},{"dato":"15.07","vekt":56.5,"pris":1.6741,"prisProd":1.4992,"lokalEgg":11340,"mal":46.66},{"dato":"22.07","vekt":57.61,"pris":1.7141,"prisProd":1.548,"lokalEgg":11590,"mal":47.42},{"dato":"29.07","vekt":58.5,"pris":1.7517,"prisProd":1.7517,"lokalEgg":0,"mal":47.57},{"dato":"05.08","vekt":59.3,"pris":1.7769,"prisProd":1.7769,"lokalEgg":0,"mal":47.57}],"siste":{"antall":43200,"brutto":76764,"prisEgg":1.78,"kostbasis":1.59,"mlVekt":59.6,"brettUke":1346,"malBrett":47.57,"vekt":59.3},"pallTotalt":79.2,"totalt":{"egg":777600,"brutto":1171421,"brett":15837,"pall":79.2},"miks":[["XL",0.1,"#00643c"],["L",15.1,"#1A7A52"],["M",78.4,"#4A9B73"],["S",3.6,"#82B89C"],["SI",0.1,"#B38E00"],["Øvrig",2.7,"#9AA0A6"]]},"for":{"sisteDatoLang":"15. jul 2026","dev":[{"dato":"15.05","krKg":5.644,"kvantum":11620},{"dato":"27.05","krKg":5.644,"kvantum":11860},{"dato":"01.06","krKg":5.644,"kvantum":11900},{"dato":"08.06","krKg":5.644,"kvantum":9820},{"dato":"17.06","krKg":5.7,"kvantum":12620},{"dato":"24.06","krKg":5.7,"kvantum":12340},{"dato":"01.07","krKg":5.7,"kvantum":12300},{"dato":"08.07","krKg":5.7,"kvantum":13120},{"dato":"15.07","krKg":5.719,"kvantum":12880}],"siste":{"kvantum":12880,"netto":73664,"krKg":5.719,"faktura":92080,"mva":18416,"grunnpris":5.85,"frakt":5951,"rabatter":-7635},"totalt":{"kvantum":108460,"netto":615959,"krKg":5.679,"leveranser":9}}};
-</script>
+<script src="data.js"></script>
 <script>
 let D={};
 const nf=(n,d=0)=>(n==null?"–":Number(n).toLocaleString("nb-NO",{minimumFractionDigits:d,maximumFractionDigits:d}));
@@ -163,7 +184,12 @@ function area(id,data,opts){const svg=document.getElementById(id);if(!svg)return
   g+=`<path d="${smooth(epts)}" fill="none" stroke="${e.color}" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>`;
   epts.forEach((p,i)=>{const last=i===epts.length-1;g+=`<circle cx="${p[0]}" cy="${p[1]}" r="${last?4.5:2.8}" fill="${last?e.color:'#0b1220'}" stroke="${e.color}" stroke-width="2"/>`;
    if(last)g+=`<text x="${p[0]}" y="${p[1]+20}" text-anchor="end" fill="${e.color}" font-size="13" font-weight="800">${e.last}</text>`;});}
- svg.innerHTML=g;}
+ if(opts.onTap)pts.forEach((p,i)=>{g+=`<circle class="hit" data-i="${i}" cx="${p[0]}" cy="${p[1]}" r="16" fill="transparent"/>`;});
+ svg.innerHTML=g;
+ if(opts.onTap)svg.querySelectorAll(".hit").forEach(c=>c.onclick=()=>opts.onTap(+c.dataset.i));}
+function xlab(id,labels){const n=labels.length,step=Math.ceil(n/8);
+ S(id,labels.map((l,i)=>{if(i!==n-1&&(i%step||n-1-i<step))return"";const pos=(12+392*i/((n-1)||1))/420*100;
+  return`<span style="${i===0?"left:0":i===n-1?"right:0":`left:${pos}%;transform:translateX(-50%)`}">${l}</span>`;}).join(""));}
 function bars(id,data,opts){const svg=document.getElementById(id);if(!svg)return;const H=+svg.getAttribute("viewBox").split(" ")[3],W=420,pl=12,pr=12,pt=24,pb=14;
  const mx=Math.max(...data)*1.12;const n=data.length;const bw=(W-pl-pr)/n*0.6;const gap=(W-pl-pr)/n;
  const y=v=>pt+(H-pt-pb)*(1-v/mx);let g="";
@@ -177,11 +203,11 @@ function renderEgg(){const e=D.egg;if(!e)return;
  S("e_pris",nf(e.siste.prisEgg,2)+'<span class="u"> kr/egg</span>');S("e_kost",nf(e.siste.kostbasis,2)+'<span class="u"> kr/egg</span>');
  S("e_mlvekt",nf(e.siste.mlVekt,1)+'<span class="u"> g</span>');S("e_brett",nf(e.siste.brettUke));
  S("e_tegg",nf(e.totalt.egg));S("e_tbrutto",nf(e.totalt.brutto));S("e_tbrett",nf(e.totalt.brett));S("e_tpall",nf(e.totalt.pall,1));
- const xs=e.dev.map(d=>`<span>${d.dato}</span>`).join("");S("e_xw",xs);S("e_xp",xs);
- area("chartEW",e.dev.map(d=>d.vekt),{color:"#33C27E",last:nf(e.dev.at(-1).vekt,1)+" g",first:nf(e.dev[0].vekt,1)+" g"});
+ xlab("e_xw",e.dev.map(d=>d.dato));xlab("e_xp",e.dev.map(d=>d.dato));
+ area("chartEW",e.dev.map(d=>d.vekt),{color:"#33C27E",last:nf(e.dev.at(-1).vekt,1)+" g",first:nf(e.dev[0].vekt,1)+" g",onTap:openHist});
  const _pp=e.dev.map(d=>d.prisProd??null);
  const _hasPP=_pp.some((v,i)=>v!=null&&Math.abs(v-e.dev[i].pris)>1e-6);
- area("chartEP",e.dev.map(d=>d.pris),{color:"#33C27E",last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr",
+ area("chartEP",e.dev.map(d=>d.pris),{color:"#33C27E",onTap:openHist,last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr",
   extra:(_hasPP?{data:_pp,color:"#B38E00",last:nf(_pp.filter(v=>v!=null).at(-1),2)+" kr"}:null)});
  S("e_mixbar",e.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join(""));
  S("e_legend",e.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join(""));}
@@ -195,17 +221,66 @@ function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").styl
  const xs=f.dev.map(d=>`<span>${d.dato}</span>`).join("");S("f_xp",xs);S("f_xk",xs);
  area("chartFP",f.dev.map(d=>d.krKg),{color:"#33C27E",last:nf(f.dev.at(-1).krKg,2)+" kr",first:nf(f.dev[0].krKg,2)+" kr"});
  bars("chartFK",f.dev.map(d=>d.kvantum),{color:"#33C27E",fmt:v=>nf(v)});}
+const MND=["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const dKort=iso=>iso.slice(8,10)+"."+iso.slice(5,7);
+const dLang=iso=>+iso.slice(8,10)+". "+MND[+iso.slice(5,7)-1]+" "+iso.slice(0,4);
+const dFull=iso=>iso?iso.slice(8,10)+"."+iso.slice(5,7)+"."+iso.slice(0,4):"–";
+const rnd=(v,d=1)=>{const f=10**d;return Math.round(v*f+1e-6)/f;};
+const MIKS=[["XL","#00643c"],["L","#1A7A52"],["M","#4A9B73"],["S","#82B89C"],["SI","#B38E00"]];
+function bygg(src){if(!src||!src.avregninger)return src;
+ const b=src.basis||{};let tEgg=b.egg||0,tBrutto=b.brutto||0,tBrett=b.brett||0,mal=null;
+ const hist=src.avregninger.slice().sort((x,y)=>x.dato<y.dato?-1:x.dato>y.dato?1:0).map(a=>{
+  if("malBrett" in a)mal=a.malBrett;
+  const h={...a,mal,lokalEgg:a.lokalEgg||0};
+  if(a.klasser){const k=a.klasser,sum=i=>Object.values(k).reduce((s,v)=>s+(v[i]||0),0);
+   h.antall=sum(0);h.kg=a.kg??sum(1);h.sumEgg=sum(3);h.sumTillegg=(a.tillegg||[]).reduce((s,t)=>s+t[3],0);
+   h.vekt=h.kg/h.antall*1000;h.pris=a.brutto/h.antall;h.prisProd=a.brutto/(h.antall+h.lokalEgg);
+   const ml=["M","L"].reduce((s,c)=>k[c]?[s[0]+k[c][0],s[1]+k[c][1]]:s,[0,0]);
+   h.mlVekt=ml[0]?ml[1]/ml[0]*1000:null;h.brett=Math.round(ml[0]/30);
+   const pct=n=>rnd(n/h.antall*100,1);let rest=h.antall;
+   h.miks=MIKS.map(([c,col])=>{const n=k[c]?k[c][0]:0;rest-=n;return[c,pct(n),col];});
+   h.miks.push(["Øvrig",pct(rest),"#9AA0A6"]);
+   tEgg+=h.antall;tBrutto+=a.brutto;tBrett+=h.brett;}
+  return h;});
+ const s=hist.at(-1),pall=rnd(tBrett/200,1);
+ return{hist,sisteDatoLang:dLang(s.dato),
+  dev:hist.map(h=>({dato:dKort(h.dato),vekt:h.vekt,pris:h.pris,prisProd:h.prisProd})),
+  siste:{antall:s.antall,brutto:s.brutto,prisEgg:s.pris,kostbasis:s.mal!=null?s.mal/30:null,mlVekt:s.mlVekt,brettUke:s.brett,malBrett:s.mal,vekt:s.vekt},
+  pallTotalt:pall,totalt:{egg:tEgg,brutto:tBrutto,brett:tBrett,pall},miks:s.miks||[]};}
+const delta=(now,prev,d,unit)=>{if(prev==null||now==null)return"";const df=rnd(now-prev,d);
+ return`<span class="dl ${df>0?"up":df<0?"down":"flat"}">${df>0?"▲ +":df<0?"▼ ":"● "}${nf(df,d)} ${unit}</span>`;};
+function renderHist(){const e=D.egg;if(!e||!e.hist){document.getElementById("navHist").style.display="none";return;}
+ const H=e.hist;
+ S("h_list",H.map((h,i)=>{const p=H[i-1];let body="";
+  if(h.klasser){
+   body+=`<div class="hsub">EGGKLASSER</div><table class="htab"><tr><th>Klasse</th><th>Antall</th><th>Kg</th><th>Kr/kg</th><th>Beløp</th></tr>`+
+    Object.entries(h.klasser).map(([c,v])=>`<tr><td>${c}</td><td>${nf(v[0])}</td><td>${nf(v[1],2)}</td><td>${v[2]==null?"–":nf(v[2],2)}</td><td>${nf(v[3],2)}</td></tr>`).join("")+
+    `<tr class="sum"><td>Sum egg</td><td>${nf(h.antall)}</td><td>${nf(h.kg,2)}</td><td></td><td>${nf(h.sumEgg,2)}</td></tr></table>`;
+   if(h.tillegg&&h.tillegg.length)body+=`<div class="hsub">TILLEGG</div><table class="htab"><tr><th>Type</th><th>Kg</th><th>Sats</th><th>Beløp</th></tr>`+
+    h.tillegg.map(t=>`<tr><td>${t[0]}</td><td>${nf(t[1],2)}</td><td>${nf(t[2],2)}</td><td>${nf(t[3],2)}</td></tr>`).join("")+
+    `<tr class="sum"><td>Sum tillegg</td><td></td><td></td><td>${nf(h.sumTillegg,2)}</td></tr></table>`;
+   body+=`<div class="hsub">OPPGJØR</div><table class="htab"><tr><td>Beløp eks. MVA</td><td>${nf(h.eksMva,2)}</td></tr><tr><td>MVA</td><td>${nf(h.mva,2)}</td></tr><tr class="sum"><td>Brutto</td><td>${nf(h.brutto,2)}</td></tr></table>`;
+   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>M+L samlet vekt</td><td>${nf(h.mlVekt,1)} g</td></tr><tr><td>Snittpris per egg (brutto)</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Snittpris eks. MVA</td><td>${nf(h.eksMva/h.antall,2)} kr</td></tr><tr><td>Brett M+L</td><td>${nf(h.brett)}</td></tr>${h.lokalEgg?`<tr><td>Lokalsalg</td><td>${nf(h.lokalEgg)} egg</td></tr>`:""}${h.mal!=null?`<tr><td>Målpris</td><td>${nf(h.mal,2)} kr/brett</td></tr>`:""}</table>`;
+   body+=`<div class="hsub">STØRRELSESMIKS</div><div class="mixbar">${h.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join("")}</div><div class="legend">${h.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join("")}</div>`;
+   body+=`<div class="hnote">Avregning ${h.nr||"–"} · datert ${dFull(h.avregnet)} · utbetalt ${dFull(h.utbetalt)}</div>`;
+  }else{
+   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>Snittpris per levert egg</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Snittpris per produsert egg</td><td>${nf(h.prisProd,2)} kr</td></tr><tr><td>Lokalsalg</td><td>${nf(h.lokalEgg)} egg</td></tr><tr><td>Målpris</td><td>${h.mal==null?"–":nf(h.mal,2)+" kr/brett"}</td></tr></table><div class="hnote">Eggklasser og oppgjør er ikke registrert for denne leveransen.</div>`;}
+  return`<div class="hrow" id="h_${i}"><div class="hhead" data-i="${i}"><div><div class="hd">${dLang(h.dato)}</div><div class="hs">${h.antall?nf(h.antall)+" egg · "+nf(h.brutto)+" kr":"Nøkkeltall"}</div></div>
+   <div class="hv"><b>${nf(h.vekt,1)} g</b>${delta(h.vekt,p&&p.vekt,1,"g")}</div><div class="hv"><b>${nf(h.pris,2)} kr</b>${delta(h.pris,p&&p.pris,2,"kr")}</div><span class="chev">▶</span></div><div class="hbody">${body}</div></div>`;}).reverse().join(""));
+ document.querySelectorAll("#h_list .hhead").forEach(el=>el.onclick=()=>el.parentNode.classList.toggle("open"));}
+function openHist(i){tab("hist");document.querySelectorAll("#h_list .hrow").forEach(r=>r.classList.remove("open"));
+ const el=document.getElementById("h_"+i);if(el){el.classList.add("open");el.scrollIntoView({block:"center"});}}
 function tab(which){
- document.getElementById("tabEgg").classList.toggle("on",which==="egg");
- document.getElementById("tabFor").classList.toggle("on",which==="for");
- document.getElementById("navEgg").classList.toggle("active",which==="egg");
- document.getElementById("navFor").classList.toggle("active",which==="for");
+ [["egg","Egg"],["hist","Hist"],["for","For"]].forEach(([k,n])=>{
+  document.getElementById("tab"+n).classList.toggle("on",which===k);
+  document.getElementById("nav"+n).classList.toggle("active",which===k);});
  window.scrollTo(0,0);}
 document.getElementById("navEgg").onclick=()=>tab("egg");
+document.getElementById("navHist").onclick=()=>tab("hist");
 document.getElementById("navFor").onclick=()=>tab("for");
-function init(){D=window.EGGLY_DATA||{};
+function init(){D=window.EGGLY_DATA||{};if(D.egg)D.egg=bygg(D.egg);
  S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
- renderEgg();renderFor();}
+ renderEgg();renderHist();renderFor();}
 init();
 </script>
 </body>

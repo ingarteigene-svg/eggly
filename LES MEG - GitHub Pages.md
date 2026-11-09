@@ -1,7 +1,7 @@
 # Eggly på iPhone – hosting via GitHub Pages
 
-Disse 4 filene utgjør appen:
-`index.html` · `manifest.webmanifest` · `icon-180.png` · `icon-512.png`
+Disse 5 filene utgjør appen:
+`index.html` · `data.js` · `manifest.webmanifest` · `icon-180.png` · `icon-512.png`
 
 ## A. Publiser gratis på GitHub Pages (kan gjøres fra iPhone-nettleser)
 
@@ -9,7 +9,7 @@ Disse 4 filene utgjør appen:
 2. Trykk **+** øverst til høyre → **New repository**.
    - Navn: f.eks. `eggly` · sett til **Public** · trykk **Create repository**.
 3. På repo-siden: **Add file → Upload files**.
-   - Last opp alle de 4 filene (dra inn eller velg fra Filer-appen på iPhone).
+   - Last opp alle de 5 filene (dra inn eller velg fra Filer-appen på iPhone).
    - Trykk **Commit changes**.
 4. Gå til **Settings → Pages**.
    - Under *Build and deployment* → Source: **Deploy from a branch**.
@@ -26,9 +26,14 @@ Disse 4 filene utgjør appen:
 
 ## C. Oppdatere tallene ved ny avregning
 
-Alle tall ligger i ett **DATA**-objekt øverst i `<script>` i `index.html`.
-To måter:
-- **Manuelt:** rediger `index.html` på GitHub (blyant-ikonet), endre tallene i `DATA`, Commit. Pages oppdateres automatisk.
-- **Automatisk:** be Cowork regenerere `index.html` fra `Eggeleveranser Nortura.xlsx` neste gang du legger inn en avregning – så laster du bare opp den nye `index.html`.
+Alle tall ligger i `data.js` – én blokk per avregning. `index.html` trenger du ikke røre.
 
-> Tips: Vil du slippe opplasting hver gang, kan dataene flyttes til en egen `data.json` som appen henter – si fra, så setter jeg det opp.
+1. Åpne `data.js` på GitHub (blyant-ikonet).
+2. Kopier den siste blokken i `avregninger`, lim den inn nederst i lista, og bytt ut tallene
+   med de fra Nortura-avregningen (eggklasser, tillegg, eks. MVA, MVA, brutto, datoer).
+3. Oppdater `oppdatert` øverst, og trykk **Commit changes**. Pages oppdateres automatisk.
+
+Appen regner selv ut snittvekt, snittpris, størrelsesmiks, brett, paller, totaler og
+endring fra forrige uke, og avregningen dukker opp i grafene og under **Historikk**.
+
+Du kan også be Claude legge inn avregningen – da holder det å lime inn tallene eller PDF-en.
