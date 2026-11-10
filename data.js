@@ -17,8 +17,6 @@ window.EGGLY_DATA = {
  oppdatert: "10.11.2026",
  place: "Teigene Egg · Hareid",
  egg: {
-  // Sum for leveransene under som bare har nøkkeltall (ingen detaljert avregning lagt inn)
-  basis: { egg: 86400, brutto: 151347.43, brett: 2642 },
   avregninger: [
    {
     nr: "5108202206", dato: "2026-06-05", avregnet: "2026-06-10", utbetalt: "2026-06-17",
@@ -198,10 +196,29 @@ window.EGGLY_DATA = {
     lokalEgg: 11590, malBrett: 47.42
    },
 
-   // Eldre leveranser – bare nøkkeltall er registrert
-   { dato: "2026-07-29", vekt: 58.5,  pris: 1.7517, prisProd: 1.7517, lokalEgg: 0,     malBrett: 47.57 },
+   {
+    nr: "5108237616", dato: "2026-07-29", avregnet: "2026-08-04", utbetalt: "2026-08-10",
+    klasser: {
+     XL:     [59, 4.45, 20.22, 89.92],
+     L:      [8193, 531.42, 23.12, 12286.50],
+     M:      [71115, 4136.26, 25.92, 107211.85],
+     S:      [4152, 213.91, 19.60, 4192.64],
+     SI:     [30, 1.27, 6.85, 8.70],
+     SKITNE: [1561, 91.31, 6.85, 625.48],
+     KLINK:  [1177, 68.74, 6.85, 470.83],
+     BLOD:   [41, 2.47, null, 0],
+     KNEKK:  [72, 4.21, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 5047.36, 0.58, 2927.48],
+     ["Kvantumstillegg", 5047.36, 0.25, 1261.85],
+     ["Merpris små industriegg", 1.27, 5.90, 7.49],
+     ["Trivselstiltak verpehøns", 5047.36, 0.50, 2523.69]
+    ],
+    kg: 5054.04, eksMva: 131606.43, mva: 19740.96, brutto: 151347.39,
+    lokalEgg: 0, malBrett: 47.57
+   },
 
-   // Fullstendige avregninger – legg nye til under her
    {
     nr: "5108241579", dato: "2026-08-05", avregnet: "2026-08-10", utbetalt: "2026-08-17",
     klasser: {
