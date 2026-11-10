@@ -127,15 +127,6 @@ body{display:flex;justify-content:center}
       <div class="psub">Netto eks. mva (inkl. frakt − rabatter)</div>
       <div class="chartbox"><svg id="chartFP" viewBox="0 0 420 170" preserveAspectRatio="none" style="width:100%;height:170px"></svg></div>
       <div class="xlabels abs" id="f_xp"></div></div>
-    <div id="f_margin" style="display:none">
-    <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">⚖️</span> FÔR MOT EGG · HITTIL <span class="rule"></span></div>
-    <div class="grid">
-      <div class="kpi"><div class="ic c-gold">🌾</div><div class="lbl">Fôrkost per egg</div><div class="val" id="m_for">–</div></div>
-      <div class="kpi"><div class="ic c-cyan">🥚</div><div class="lbl">Inntekt per egg</div><div class="val" id="m_inn">–</div></div>
-      <div class="kpi"><div class="ic c-green">➗</div><div class="lbl">Margin etter fôr</div><div class="val" id="m_mar">–</div></div>
-    </div>
-    <div class="hnote" style="margin:10px 4px 0" id="m_note"></div>
-    </div>
     <div class="sec"><span class="dot" style="background:var(--blue);box-shadow:0 0 10px var(--blue)"></span><span class="ic">📊</span> SISTE ORDRE <span class="rule"></span></div>
     <div class="grid">
       <div class="kpi"><div class="ic c-gold">💵</div><div class="lbl">Fakturabeløp</div><div class="val" id="f_fak">–</div></div>
@@ -222,7 +213,7 @@ function byggFor(src){if(!src||!src.leveranser)return src;
  const kv=L.reduce((a,l)=>a+l.kvantum,0),net=L.reduce((a,l)=>a+l.netto,0);
  return{sisteDatoLang:dLang(s.dato),dev:L.map(l=>({dato:dKort(l.dato),krKg:l.netto/l.kvantum,kvantum:l.kvantum})),
   siste:{kvantum:s.kvantum,netto:s.netto,krKg:s.netto/s.kvantum,faktura:s.belop,mva:s.mva,grunnpris:s.grunnpris,frakt:s.frakt,rabatter:s.rabatter},
-  totalt:{kvantum:kv,netto:net,krKg:net/kv,leveranser:L.length},lev:L};}
+  totalt:{kvantum:kv,netto:net,krKg:net/kv,leveranser:L.length}};}
 function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").style.display="none";return;}
  S("f_pris",nf(f.siste.krKg,2));S("f_kv",nf(f.siste.kvantum));S("f_tot",nf(f.totalt.kvantum));
  S("f_ppill",nf(f.siste.krKg,2)+" kr");S("f_kpill",nf(f.siste.kvantum)+" kg");
@@ -285,13 +276,6 @@ function renderHist(){const e=D.egg;if(!e||!e.hist){document.getElementById("nav
  document.querySelectorAll("#h_list .hhead").forEach(el=>el.onclick=()=>el.parentNode.classList.toggle("open"));}
 function openHist(i){tab("hist");document.querySelectorAll("#h_list .hrow").forEach(r=>r.classList.remove("open"));
  const el=document.getElementById("h_"+i);if(el){el.classList.add("open");el.scrollIntoView({block:"center"});}}
-function renderMargin(){const e=D.egg,f=D.for;if(!e||!e.hist||!f||!f.lev)return;
- const H=e.hist.filter(h=>h.eksMva!=null);if(!H.length)return;const til=e.hist.at(-1).dato;
- const egg=H.reduce((s,h)=>s+h.antall,0),inn=H.reduce((s,h)=>s+h.eksMva,0),L=f.lev.filter(l=>l.dato<=til),kost=L.reduce((s,l)=>s+l.netto,0);
- if(!egg||!L.length)return;const fk=kost/egg,ik=inn/egg,m=ik-fk,kr=v=>nf(v,2)+'<span class="u"> kr</span>';
- S("m_for",kr(fk));S("m_inn",kr(ik));S("m_mar",`<span style="color:${m<0?"#f87171":"var(--green)"}">${nf(m,2)}</span><span class="u"> kr</span>`);
- S("m_note",`Per egg levert til Nortura, eks. mva. ${nf(kost)} kr kraftfôr (${L.length} leveranser t.o.m. ${dFull(til)}) mot ${nf(inn)} kr for ${nf(egg)} egg. Margin per brett: ${nf(m*30,2)} kr.`);
- document.getElementById("f_margin").style.display="";}
 function tab(which){
  [["egg","Egg"],["hist","Hist"],["for","For"]].forEach(([k,n])=>{
   document.getElementById("tab"+n).classList.toggle("on",which===k);
@@ -302,7 +286,7 @@ document.getElementById("navHist").onclick=()=>tab("hist");
 document.getElementById("navFor").onclick=()=>tab("for");
 function init(){D=window.EGGLY_DATA||{};if(D.egg)D.egg=bygg(D.egg);if(D.for)D.for=byggFor(D.for);
  S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
- renderEgg();renderHist();renderFor();renderMargin();}
+ renderEgg();renderHist();renderFor();}
 init();
 </script>
 </body>
