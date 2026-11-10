@@ -36,4 +36,7 @@ Alle tall ligger i `data.js` – én blokk per avregning. `index.html` trenger d
 Appen regner selv ut snittvekt, snittpris, størrelsesmiks, brett, paller, totaler og
 endring fra forrige uke, og avregningen dukker opp i grafene og under **Historikk**.
 
+Fôr-fanen virker på samme måte: legg til én linje per Felleskjøpet-faktura nederst i
+`leveranser` under `for` i `data.js`.
+
 Du kan også be Claude legge inn avregningen – da holder det å lime inn tallene eller PDF-en.

@@ -126,7 +126,7 @@ body{display:flex;justify-content:center}
     <div class="panel"><div class="ph"><span class="ic c-cyan">📈</span><span class="t">Kost per kilo</span><span class="pill" id="f_ppill">–</span></div>
       <div class="psub">Netto eks. mva (inkl. frakt − rabatter)</div>
       <div class="chartbox"><svg id="chartFP" viewBox="0 0 420 170" preserveAspectRatio="none" style="width:100%;height:170px"></svg></div>
-      <div class="xlabels" id="f_xp"></div></div>
+      <div class="xlabels abs" id="f_xp"></div></div>
     <div class="sec"><span class="dot" style="background:var(--blue);box-shadow:0 0 10px var(--blue)"></span><span class="ic">📊</span> SISTE ORDRE <span class="rule"></span></div>
     <div class="grid">
       <div class="kpi"><div class="ic c-gold">💵</div><div class="lbl">Fakturabeløp</div><div class="val" id="f_fak">–</div></div>
@@ -138,7 +138,7 @@ body{display:flex;justify-content:center}
     </div>
     <div class="sec"><span class="dot"></span><span class="ic">📈</span> KVANTUM PER LEVERANSE <span class="rule"></span></div>
     <div class="panel"><div class="ph"><span class="ic c-cyan">⚖️</span><span class="t">Innkjøpt kvantum</span><span class="pill" id="f_kpill">–</span></div>
-      <div class="psub">kg per leveranse</div>
+      <div class="psub" id="f_ksub">kg per leveranse</div>
       <div class="chartbox"><svg id="chartFK" viewBox="0 0 420 160" preserveAspectRatio="none" style="width:100%;height:160px"></svg></div>
       <div class="xlabels" id="f_xk"></div></div>
     <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">Σ</span> TOTALT KJØPT <span class="rule"></span></div>
@@ -211,6 +211,12 @@ function renderEgg(){const e=D.egg;if(!e)return;
   extra:(_hasPP?{data:_pp,color:"#B38E00",last:nf(_pp.filter(v=>v!=null).at(-1),2)+" kr"}:null)});
  S("e_mixbar",e.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join(""));
  S("e_legend",e.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join(""));}
+function byggFor(src){if(!src||!src.leveranser)return src;
+ const L=src.leveranser.slice().sort((x,y)=>x.dato<y.dato?-1:x.dato>y.dato?1:0),s=L.at(-1);
+ const kv=L.reduce((a,l)=>a+l.kvantum,0),net=L.reduce((a,l)=>a+l.netto,0);
+ return{sisteDatoLang:dLang(s.dato),dev:L.map(l=>({dato:dKort(l.dato),krKg:l.netto/l.kvantum,kvantum:l.kvantum})),
+  siste:{kvantum:s.kvantum,netto:s.netto,krKg:s.netto/s.kvantum,faktura:s.belop,mva:s.mva,grunnpris:s.grunnpris,frakt:s.frakt,rabatter:s.rabatter},
+  totalt:{kvantum:kv,netto:net,krKg:net/kv,leveranser:L.length}};}
 function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").style.display="none";return;}
  S("f_pris",nf(f.siste.krKg,2));S("f_kv",nf(f.siste.kvantum));S("f_tot",nf(f.totalt.kvantum));
  S("f_ppill",nf(f.siste.krKg,2)+" kr");S("f_kpill",nf(f.siste.kvantum)+" kg");
@@ -218,9 +224,10 @@ function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").styl
  S("f_gp",nf(f.siste.grunnpris,2)+'<span class="u"> kr/kg</span>');S("f_frakt",nf(f.siste.frakt)+'<span class="u"> kr</span>');
  S("f_rab",nf(f.siste.rabatter)+'<span class="u"> kr</span>');S("f_lev",nf(f.totalt.leveranser));
  S("f_tkv",nf(f.totalt.kvantum));S("f_tnet",nf(f.totalt.netto));S("f_tkrkg",nf(f.totalt.krKg,2));S("f_tlev",nf(f.totalt.leveranser));
- const xs=f.dev.map(d=>`<span>${d.dato}</span>`).join("");S("f_xp",xs);S("f_xk",xs);
+ const dk=f.dev.slice(-8);xlab("f_xp",f.dev.map(d=>d.dato));S("f_xk",dk.map(d=>`<span>${d.dato}</span>`).join(""));
+ if(f.dev.length>8)S("f_ksub","kg per leveranse · siste 8");
  area("chartFP",f.dev.map(d=>d.krKg),{color:"#33C27E",last:nf(f.dev.at(-1).krKg,2)+" kr",first:nf(f.dev[0].krKg,2)+" kr"});
- bars("chartFK",f.dev.map(d=>d.kvantum),{color:"#33C27E",fmt:v=>nf(v)});}
+ bars("chartFK",dk.map(d=>d.kvantum),{color:"#33C27E",fmt:v=>nf(v)});}
 const MND=["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
 const dKort=iso=>iso.slice(8,10)+"."+iso.slice(5,7);
 const dLang=iso=>+iso.slice(8,10)+". "+MND[+iso.slice(5,7)-1]+" "+iso.slice(0,4);
@@ -278,7 +285,7 @@ function tab(which){
 document.getElementById("navEgg").onclick=()=>tab("egg");
 document.getElementById("navHist").onclick=()=>tab("hist");
 document.getElementById("navFor").onclick=()=>tab("for");
-function init(){D=window.EGGLY_DATA||{};if(D.egg)D.egg=bygg(D.egg);
+function init(){D=window.EGGLY_DATA||{};if(D.egg)D.egg=bygg(D.egg);if(D.for)D.for=byggFor(D.for);
  S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
  renderEgg();renderHist();renderFor();}
 init();

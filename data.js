@@ -1,6 +1,8 @@
 /* EGGLY – alle tall ligger her. Appen (index.html) regner ut snittvekt, snittpris,
    størrelsesmiks, brett, paller og totaler selv.
 
+   NY FÔRFAKTURA: legg til én linje nederst i "leveranser" under "for".
+
    NY AVREGNING: kopier den siste blokken i "avregninger", lim inn nederst i lista
    og bytt ut tallene med de fra Nortura-avregningen. Oppdater "oppdatert" øverst.
 
@@ -377,5 +379,36 @@ window.EGGLY_DATA = {
    }
   ]
  },
- for: {"sisteDatoLang":"15. jul 2026","dev":[{"dato":"15.05","krKg":5.644,"kvantum":11620},{"dato":"27.05","krKg":5.644,"kvantum":11860},{"dato":"01.06","krKg":5.644,"kvantum":11900},{"dato":"08.06","krKg":5.644,"kvantum":9820},{"dato":"17.06","krKg":5.7,"kvantum":12620},{"dato":"24.06","krKg":5.7,"kvantum":12340},{"dato":"01.07","krKg":5.7,"kvantum":12300},{"dato":"08.07","krKg":5.7,"kvantum":13120},{"dato":"15.07","krKg":5.719,"kvantum":12880}],"siste":{"kvantum":12880,"netto":73664,"krKg":5.719,"faktura":92080,"mva":18416,"grunnpris":5.85,"frakt":5951,"rabatter":-7635},"totalt":{"kvantum":108460,"netto":615959,"krKg":5.679,"leveranser":9}}
+ for: {
+  // Én linje per kraftfôr-faktura fra Felleskjøpet. Beløp eks. mva unntatt "belop" (å betale).
+  //   frakt = frakt kraftfôr + stedsfrakt · rabatter = årskvantum-, lass- og kontantrabatt + stedsfrakttilskudd
+  leveranser: [
+   { dato: "2026-05-15", faktura: "10991605", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 11620, grunnpris: 5.77, frakt: 5368.44, rabatter: -6832.68, netto: 65583.16, mva: 16395.79, belop: 81978.95 },
+   { dato: "2026-05-27", faktura: "11022896", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 11860, grunnpris: 5.77, frakt: 5479.32, rabatter: -6973.80, netto: 66937.72, mva: 16734.43, belop: 83672.15 },
+   { dato: "2026-06-01", faktura: "11044880", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 11900, grunnpris: 5.77, frakt: 5497.80, rabatter: -6997.32, netto: 67163.48, mva: 16790.87, belop: 83954.35 },
+   { dato: "2026-06-08", faktura: "11069542", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 9820, grunnpris: 5.77, frakt: 4536.84, rabatter: -5774.26, netto: 55423.98, mva: 13856.00, belop: 69279.98 },
+   { dato: "2026-06-17", faktura: "11111609", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12620, grunnpris: 5.83, frakt: 5830.44, rabatter: -7465.74, netto: 71939.30, mva: 17984.83, belop: 89924.13 },
+   { dato: "2026-06-24", faktura: "11138674", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12340, grunnpris: 5.83, frakt: 5701.08, rabatter: -7300.10, netto: 70343.18, mva: 17585.80, belop: 87928.98 },
+   { dato: "2026-07-01", faktura: "11165040", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12300, grunnpris: 5.83, frakt: 5682.60, rabatter: -7276.43, netto: 70115.17, mva: 17528.79, belop: 87643.96 },
+   { dato: "2026-07-08", faktura: "11182944", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 13120, grunnpris: 5.83, frakt: 6061.44, rabatter: -7761.53, netto: 74789.51, mva: 18697.38, belop: 93486.89 },
+   { dato: "2026-07-15", faktura: "11208568", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12880, grunnpris: 5.85, frakt: 5950.56, rabatter: -7634.88, netto: 73663.68, mva: 18415.92, belop: 92079.60 },
+   { dato: "2026-07-22", faktura: "11227266", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12640, grunnpris: 5.85, frakt: 5839.68, rabatter: -7492.61, netto: 72291.07, mva: 18072.77, belop: 90363.84 },
+   { dato: "2026-07-29", faktura: "11241227", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12800, grunnpris: 5.85, frakt: 5913.60, rabatter: -7587.46, netto: 73206.14, mva: 18301.54, belop: 91507.68 },
+   { dato: "2026-08-05", faktura: "11264586", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12540, grunnpris: 5.85, frakt: 5793.48, rabatter: -7433.34, netto: 71719.14, mva: 17929.79, belop: 89648.93 },
+   { dato: "2026-08-12", faktura: "11282290", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12880, grunnpris: 5.85, frakt: 5950.56, rabatter: -7634.88, netto: 73663.68, mva: 18415.92, belop: 92079.60 },
+   { dato: "2026-08-19", faktura: "11300099", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 12540, grunnpris: 5.87, frakt: 5793.48, rabatter: -7448.26, netto: 71955.02, mva: 17988.76, belop: 89943.78 },
+   { dato: "2026-08-26", faktura: "11319899", vare: "KROMAT VERP SUPERGUL 1 B", kvantum: 13080, grunnpris: 5.87, frakt: 6042.96, rabatter: -7769.00, netto: 75053.56, mva: 18763.39, belop: 93816.95 },
+   { dato: "2026-09-02", faktura: "11348482", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 13020, grunnpris: 5.74, frakt: 6015.24, rabatter: -7632.65, netto: 73117.39, mva: 18279.35, belop: 91396.74 },
+   { dato: "2026-09-09", faktura: "11369752", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 13740, grunnpris: 5.74, frakt: 6347.88, rabatter: -8054.73, netto: 77160.75, mva: 19290.19, belop: 96450.94 },
+   { dato: "2026-09-16", faktura: "11394839", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 14000, grunnpris: 5.64, frakt: 6468.00, rabatter: -8123.85, netto: 77304.15, mva: 19326.04, belop: 96630.19 },
+   { dato: "2026-09-21", faktura: "11409951", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 9860, grunnpris: 5.64, frakt: 4555.32, rabatter: -5721.51, netto: 54444.21, mva: 13611.05, belop: 68055.26 },
+   { dato: "2026-09-28", faktura: "11432604", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 13020, grunnpris: 5.64, frakt: 6015.24, rabatter: -7555.18, netto: 71892.86, mva: 17973.22, belop: 89866.08 },
+   { dato: "2026-10-05", faktura: "11456769", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12420, grunnpris: 5.64, frakt: 5738.04, rabatter: -7207.02, netto: 68579.82, mva: 17144.96, belop: 85724.78 },
+   { dato: "2026-10-12", faktura: "11476005", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12760, grunnpris: 5.64, frakt: 5895.12, rabatter: -7404.31, netto: 70457.21, mva: 17614.30, belop: 88071.51 },
+   { dato: "2026-10-19", faktura: "11499549", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12480, grunnpris: 5.78, frakt: 5765.76, rabatter: -7345.79, netto: 70554.37, mva: 17638.59, belop: 88192.96 },
+   { dato: "2026-10-26", faktura: "11519219", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12920, grunnpris: 5.78, frakt: 5969.04, rabatter: -7604.78, netto: 73041.86, mva: 18260.47, belop: 91302.33 },
+   { dato: "2026-11-02", faktura: "11542398", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12980, grunnpris: 5.78, frakt: 5996.76, rabatter: -7640.09, netto: 73381.07, mva: 18345.27, belop: 91726.34 },
+   { dato: "2026-11-09", faktura: "11562064", vare: "KROMAT VERP SUPERGUL 2 B", kvantum: 12420, grunnpris: 5.78, frakt: 5738.04, rabatter: -7310.47, netto: 70215.17, mva: 17553.79, belop: 87768.96 }
+  ]
+ }
 };
