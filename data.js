@@ -13,7 +13,8 @@
      kg        sum vekt egg fra avregningen (valgfri – ellers summeres klassene)
      eksMva / mva / brutto   oppgjørslinjene nederst på avregningen
      lokalEgg  egg solgt lokalt samme uke (0 hvis ingen)
-     malBrett  målpris kr/brett (kostbasis × 30). Utelat for å videreføre forrige verdi.
+     malBrett  valgfri. Målpris kr/brett regnes ellers ut selv: det Nortura betaler for
+               M+L-egg eks. mva inkl. tillegg per kg, per brett på 30 egg.
 */
 window.EGGLY_DATA = {
  oppdatert: "10.11.2026",
@@ -40,7 +41,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 465.82, 0.50, 232.90]
     ],
     kg: 466.06, eksMva: 7450.71, mva: 1117.62, brutto: 8568.33,
-    lokalEgg: 16020, malBrett: null
+    lokalEgg: 16020
    },
    {
     nr: "5108208925", dato: "2026-06-10", avregnet: "2026-06-22", utbetalt: "2026-06-22",
@@ -62,7 +63,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 2955.63, 0.50, 1477.82]
     ],
     kg: 2958.50, eksMva: 53698.20, mva: 8054.74, brutto: 61752.94,
-    lokalEgg: 10790, malBrett: 46.31
+    lokalEgg: 10790
    },
    {
     nr: "5108210955", dato: "2026-06-17", avregnet: "2026-06-23", utbetalt: "2026-06-29",
@@ -84,7 +85,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 4818.83, 0.50, 2409.43]
     ],
     kg: 4826.61, eksMva: 106091.15, mva: 15913.67, brutto: 122004.82,
-    lokalEgg: 16250, malBrett: 46.22
+    lokalEgg: 16250
    },
    {
     nr: "5108215344", dato: "2026-06-24", avregnet: "2026-06-29", utbetalt: "2026-07-06",
@@ -106,7 +107,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 4503.34, 0.50, 2251.67]
     ],
     kg: 4511.62, eksMva: 106470.03, mva: 15970.50, brutto: 122440.53,
-    lokalEgg: 15860, malBrett: 46.08
+    lokalEgg: 15860
    },
    {
     nr: "5108223677", dato: "2026-07-01", avregnet: "2026-07-08", utbetalt: "2026-07-13",
@@ -128,7 +129,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 4627.42, 0.50, 2313.73]
     ],
     kg: 4637.08, eksMva: 112144.46, mva: 16821.67, brutto: 128966.13,
-    lokalEgg: 13850, malBrett: 45.52
+    lokalEgg: 13850
    },
 
    {
@@ -151,7 +152,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 5319.52, 0.50, 2659.76]
     ],
     kg: 5331.01, eksMva: 131945.25, mva: 19791.78, brutto: 151737.03,
-    lokalEgg: 16520, malBrett: 45.99
+    lokalEgg: 16520
    },
    {
     nr: "5108229623", dato: "2026-07-15", avregnet: "2026-07-20", utbetalt: "2026-07-27",
@@ -173,7 +174,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 5479.39, 0.50, 2739.71]
     ],
     kg: 5492.02, eksMva: 141495.37, mva: 21224.31, brutto: 162719.68,
-    lokalEgg: 11340, malBrett: 46.66
+    lokalEgg: 11340
    },
    {
     nr: "5108234068", dato: "2026-07-22", avregnet: "2026-07-29", utbetalt: "2026-08-03",
@@ -195,7 +196,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 6207.86, 0.50, 3103.92]
     ],
     kg: 6221.46, eksMva: 160974.01, mva: 24146.10, brutto: 185120.11,
-    lokalEgg: 11590, malBrett: 47.42
+    lokalEgg: 11590
    },
 
    {
@@ -218,7 +219,7 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 5047.36, 0.50, 2523.69]
     ],
     kg: 5054.04, eksMva: 131606.43, mva: 19740.96, brutto: 151347.39,
-    lokalEgg: 0, malBrett: 47.57
+    lokalEgg: 0
    },
 
    {

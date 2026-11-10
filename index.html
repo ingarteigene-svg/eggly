@@ -244,6 +244,8 @@ function bygg(src){if(!src||!src.avregninger)return src;
    h.vekt=h.kg/h.antall*1000;h.pris=a.brutto/h.antall;h.prisProd=a.brutto/(h.antall+h.lokalEgg);
    const ml=["M","L"].reduce((s,c)=>k[c]?[s[0]+k[c][0],s[1]+k[c][1]]:s,[0,0]);
    h.mlVekt=ml[0]?ml[1]/ml[0]*1000:null;h.brett=Math.round(ml[0]/30);
+   if(!("malBrett" in a)&&ml[0]){const sats=(a.tillegg||[]).filter(t=>!/sm. industriegg/i.test(t[0])).reduce((x,t)=>x+t[2],0);
+    const mlKr=["M","L"].reduce((x,c)=>x+(k[c]?k[c][3]:0),0);h.mal=mal=(mlKr+ml[1]*sats)/ml[0]*30;}
    const pct=n=>rnd(n/h.antall*100,1);let rest=h.antall;
    h.miks=MIKS.map(([c,col])=>{const n=k[c]?k[c][0]:0;rest-=n;return[c,pct(n),col];});
    h.miks.push(["Øvrig",pct(rest),"#9AA0A6"]);
