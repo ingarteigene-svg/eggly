@@ -12,7 +12,6 @@
      tillegg   [navn, kg, sats, beløp]
      kg        sum vekt egg fra avregningen (valgfri – ellers summeres klassene)
      eksMva / mva / brutto   oppgjørslinjene nederst på avregningen
-     lokalEgg  egg solgt lokalt samme uke (0 hvis ingen)
      malBrett  valgfri. Målpris kr/brett regnes ellers ut selv: det Nortura betaler for
                M+L-egg eks. mva inkl. tillegg per kg, per brett på 30 egg.
 */
@@ -40,8 +39,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 354.94, 5.90, 2094.16],
      ["Trivselstiltak verpehøns", 465.82, 0.50, 232.90]
     ],
-    kg: 466.06, eksMva: 7450.71, mva: 1117.62, brutto: 8568.33,
-    lokalEgg: 16020
+    kg: 466.06, eksMva: 7450.71, mva: 1117.62, brutto: 8568.33
    },
    {
     nr: "5108208925", dato: "2026-06-10", avregnet: "2026-06-22", utbetalt: "2026-06-22",
@@ -62,8 +60,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 1436.39, 5.90, 8474.70],
      ["Trivselstiltak verpehøns", 2955.63, 0.50, 1477.82]
     ],
-    kg: 2958.50, eksMva: 53698.20, mva: 8054.74, brutto: 61752.94,
-    lokalEgg: 10790
+    kg: 2958.50, eksMva: 53698.20, mva: 8054.74, brutto: 61752.94
    },
    {
     nr: "5108210955", dato: "2026-06-17", avregnet: "2026-06-23", utbetalt: "2026-06-29",
@@ -84,8 +81,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 373.24, 5.90, 2202.11],
      ["Trivselstiltak verpehøns", 4818.83, 0.50, 2409.43]
     ],
-    kg: 4826.61, eksMva: 106091.15, mva: 15913.67, brutto: 122004.82,
-    lokalEgg: 16250
+    kg: 4826.61, eksMva: 106091.15, mva: 15913.67, brutto: 122004.82
    },
    {
     nr: "5108215344", dato: "2026-06-24", avregnet: "2026-06-29", utbetalt: "2026-07-06",
@@ -106,8 +102,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 136.86, 5.90, 807.46],
      ["Trivselstiltak verpehøns", 4503.34, 0.50, 2251.67]
     ],
-    kg: 4511.62, eksMva: 106470.03, mva: 15970.50, brutto: 122440.53,
-    lokalEgg: 15860
+    kg: 4511.62, eksMva: 106470.03, mva: 15970.50, brutto: 122440.53
    },
    {
     nr: "5108223677", dato: "2026-07-01", avregnet: "2026-07-08", utbetalt: "2026-07-13",
@@ -128,8 +123,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 17.48, 5.90, 103.10],
      ["Trivselstiltak verpehøns", 4627.42, 0.50, 2313.73]
     ],
-    kg: 4637.08, eksMva: 112144.46, mva: 16821.67, brutto: 128966.13,
-    lokalEgg: 13850
+    kg: 4637.08, eksMva: 112144.46, mva: 16821.67, brutto: 128966.13
    },
 
    {
@@ -151,8 +145,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 11.82, 5.90, 69.71],
      ["Trivselstiltak verpehøns", 5319.52, 0.50, 2659.76]
     ],
-    kg: 5331.01, eksMva: 131945.25, mva: 19791.78, brutto: 151737.03,
-    lokalEgg: 16520
+    kg: 5331.01, eksMva: 131945.25, mva: 19791.78, brutto: 151737.03
    },
    {
     nr: "5108229623", dato: "2026-07-15", avregnet: "2026-07-20", utbetalt: "2026-07-27",
@@ -173,8 +166,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 3.75, 5.90, 22.14],
      ["Trivselstiltak verpehøns", 5479.39, 0.50, 2739.71]
     ],
-    kg: 5492.02, eksMva: 141495.37, mva: 21224.31, brutto: 162719.68,
-    lokalEgg: 11340
+    kg: 5492.02, eksMva: 141495.37, mva: 21224.31, brutto: 162719.68
    },
    {
     nr: "5108234068", dato: "2026-07-22", avregnet: "2026-07-29", utbetalt: "2026-08-03",
@@ -195,8 +187,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 3.20, 5.90, 18.87],
      ["Trivselstiltak verpehøns", 6207.86, 0.50, 3103.92]
     ],
-    kg: 6221.46, eksMva: 160974.01, mva: 24146.10, brutto: 185120.11,
-    lokalEgg: 11590
+    kg: 6221.46, eksMva: 160974.01, mva: 24146.10, brutto: 185120.11
    },
 
    {
@@ -218,8 +209,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 1.27, 5.90, 7.49],
      ["Trivselstiltak verpehøns", 5047.36, 0.50, 2523.69]
     ],
-    kg: 5054.04, eksMva: 131606.43, mva: 19740.96, brutto: 151347.39,
-    lokalEgg: 0
+    kg: 5054.04, eksMva: 131606.43, mva: 19740.96, brutto: 151347.39
    },
 
    {
@@ -241,8 +231,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg",    1.09,    5.90, 6.43],
      ["Trivselstiltak verpehøns",   2560.38, 0.50, 1280.20]
     ],
-    kg: 2562.95, eksMva: 66751.33, mva: 10012.68, brutto: 76764.01,
-    lokalEgg: 0
+    kg: 2562.95, eksMva: 66751.33, mva: 10012.68, brutto: 76764.01
    },
    {
     nr: "5108251452", dato: "2026-08-19", avregnet: "2026-08-24", utbetalt: "2026-08-31",
@@ -263,8 +252,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 1.06, 5.90, 6.27],
      ["Trivselstiltak verpehøns", 1956.85, 0.50, 978.43]
     ],
-    kg: 1960.50, eksMva: 50171.78, mva: 7525.78, brutto: 57697.56,
-    lokalEgg: 0
+    kg: 1960.50, eksMva: 50171.78, mva: 7525.78, brutto: 57697.56
    },
    {
     nr: "5108255612", dato: "2026-08-26", avregnet: "2026-08-28", utbetalt: "2026-09-07",
@@ -285,8 +273,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 0.42, 5.89, 2.47],
      ["Trivselstiltak verpehøns", 1970.49, 0.50, 985.25]
     ],
-    kg: 1973.37, eksMva: 49722.01, mva: 7458.30, brutto: 57180.31,
-    lokalEgg: 0
+    kg: 1973.37, eksMva: 49722.01, mva: 7458.30, brutto: 57180.31
    },
    {
     nr: "5108284940", dato: "2026-09-23", avregnet: "2026-09-28", utbetalt: "2026-10-05",
@@ -307,8 +294,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 1.92, 5.90, 11.33],
      ["Trivselstiltak verpehøns", 1330.37, 0.50, 665.19]
     ],
-    kg: 1333.85, eksMva: 32927.69, mva: 4939.15, brutto: 37866.84,
-    lokalEgg: 0
+    kg: 1333.85, eksMva: 32927.69, mva: 4939.15, brutto: 37866.84
    },
    {
     nr: "5108293798", dato: "2026-09-30", avregnet: "2026-10-05", utbetalt: "2026-10-12",
@@ -329,8 +315,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 0.64, 5.89, 3.79],
      ["Trivselstiltak verpehøns", 2666.47, 0.50, 1333.22]
     ],
-    kg: 2672.41, eksMva: 66810.64, mva: 10021.61, brutto: 76832.25,
-    lokalEgg: 0
+    kg: 2672.41, eksMva: 66810.64, mva: 10021.61, brutto: 76832.25
    },
    {
     nr: "5108309862", dato: "2026-10-14", avregnet: "2026-10-19", utbetalt: "2026-10-26",
@@ -352,8 +337,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 0.72, 5.91, 4.27],
      ["Trivselstiltak verpehøns", 2643.31, 0.50, 1321.66]
     ],
-    kg: 2647.60, eksMva: 67079.70, mva: 10061.96, brutto: 77141.66,
-    lokalEgg: 0
+    kg: 2647.60, eksMva: 67079.70, mva: 10061.96, brutto: 77141.66
    },
    {
     nr: "5108326992", dato: "2026-10-28", avregnet: "2026-11-02", utbetalt: "2026-11-09",
@@ -375,8 +359,7 @@ window.EGGLY_DATA = {
      ["Merpris små industriegg", 0.82, 5.89, 4.81],
      ["Trivselstiltak verpehøns", 2691.12, 0.50, 1345.57]
     ],
-    kg: 2697.06, eksMva: 67464.46, mva: 10119.67, brutto: 77584.13,
-    lokalEgg: 0
+    kg: 2697.06, eksMva: 67464.46, mva: 10119.67, brutto: 77584.13
    }
   ]
  },

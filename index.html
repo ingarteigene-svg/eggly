@@ -106,7 +106,7 @@ body{display:flex;justify-content:center}
     <div class="panel"><div class="mixbar" id="e_mixbar"></div><div class="legend" id="e_legend"></div></div>
     <div class="sec"><span class="dot"></span><span class="ic">📈</span> PRISUTVIKLING <span class="rule"></span></div>
     <div class="panel"><div class="ph"><span class="ic c-cyan">🏷️</span><span class="t">Snittpris per egg</span><span class="pill" id="e_ppill">–</span></div>
-      <div class="psub">Grønn: per levert egg · Gull stiplet: per produsert egg (inkl. lokalsalg)</div>
+      <div class="psub">Brutto inkl. mva per levert egg</div>
       <div class="chartbox"><svg id="chartEP" viewBox="0 0 420 160" preserveAspectRatio="none" style="width:100%;height:160px"></svg></div>
       <div class="xlabels abs" id="e_xp"></div></div>
     <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">Σ</span> TOTALT LEVERT <span class="rule"></span></div>
@@ -127,6 +127,15 @@ body{display:flex;justify-content:center}
       <div class="psub">Netto eks. mva (inkl. frakt − rabatter)</div>
       <div class="chartbox"><svg id="chartFP" viewBox="0 0 420 170" preserveAspectRatio="none" style="width:100%;height:170px"></svg></div>
       <div class="xlabels abs" id="f_xp"></div></div>
+    <div id="f_margin" style="display:none">
+    <div class="sec"><span class="dot" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span><span class="ic">⚖️</span> FÔR MOT EGG · HITTIL <span class="rule"></span></div>
+    <div class="grid">
+      <div class="kpi"><div class="ic c-gold">🌾</div><div class="lbl">Fôrkost per egg</div><div class="val" id="m_for">–</div></div>
+      <div class="kpi"><div class="ic c-cyan">🥚</div><div class="lbl">Inntekt per egg</div><div class="val" id="m_inn">–</div></div>
+      <div class="kpi"><div class="ic c-green">➗</div><div class="lbl">Margin etter fôr</div><div class="val" id="m_mar">–</div></div>
+    </div>
+    <div class="hnote" style="margin:10px 4px 0" id="m_note"></div>
+    </div>
     <div class="sec"><span class="dot" style="background:var(--blue);box-shadow:0 0 10px var(--blue)"></span><span class="ic">📊</span> SISTE ORDRE <span class="rule"></span></div>
     <div class="grid">
       <div class="kpi"><div class="ic c-gold">💵</div><div class="lbl">Fakturabeløp</div><div class="val" id="f_fak">–</div></div>
@@ -205,10 +214,7 @@ function renderEgg(){const e=D.egg;if(!e)return;
  S("e_tegg",nf(e.totalt.egg));S("e_tbrutto",nf(e.totalt.brutto));S("e_tbrett",nf(e.totalt.brett));S("e_tpall",nf(e.totalt.pall,1));
  xlab("e_xw",e.dev.map(d=>d.dato));xlab("e_xp",e.dev.map(d=>d.dato));
  area("chartEW",e.dev.map(d=>d.vekt),{color:"#33C27E",last:nf(e.dev.at(-1).vekt,1)+" g",first:nf(e.dev[0].vekt,1)+" g",onTap:openHist});
- const _pp=e.dev.map(d=>d.prisProd??null);
- const _hasPP=_pp.some((v,i)=>v!=null&&Math.abs(v-e.dev[i].pris)>1e-6);
- area("chartEP",e.dev.map(d=>d.pris),{color:"#33C27E",onTap:openHist,last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr",
-  extra:(_hasPP?{data:_pp,color:"#B38E00",last:nf(_pp.filter(v=>v!=null).at(-1),2)+" kr"}:null)});
+ area("chartEP",e.dev.map(d=>d.pris),{color:"#33C27E",onTap:openHist,last:nf(e.dev.at(-1).pris,2)+" kr",first:nf(e.dev[0].pris,2)+" kr"});
  S("e_mixbar",e.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join(""));
  S("e_legend",e.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join(""));}
 function byggFor(src){if(!src||!src.leveranser)return src;
@@ -216,7 +222,7 @@ function byggFor(src){if(!src||!src.leveranser)return src;
  const kv=L.reduce((a,l)=>a+l.kvantum,0),net=L.reduce((a,l)=>a+l.netto,0);
  return{sisteDatoLang:dLang(s.dato),dev:L.map(l=>({dato:dKort(l.dato),krKg:l.netto/l.kvantum,kvantum:l.kvantum})),
   siste:{kvantum:s.kvantum,netto:s.netto,krKg:s.netto/s.kvantum,faktura:s.belop,mva:s.mva,grunnpris:s.grunnpris,frakt:s.frakt,rabatter:s.rabatter},
-  totalt:{kvantum:kv,netto:net,krKg:net/kv,leveranser:L.length}};}
+  totalt:{kvantum:kv,netto:net,krKg:net/kv,leveranser:L.length},lev:L};}
 function renderFor(){const f=D.for;if(!f){document.getElementById("navFor").style.display="none";return;}
  S("f_pris",nf(f.siste.krKg,2));S("f_kv",nf(f.siste.kvantum));S("f_tot",nf(f.totalt.kvantum));
  S("f_ppill",nf(f.siste.krKg,2)+" kr");S("f_kpill",nf(f.siste.kvantum)+" kg");
@@ -238,10 +244,10 @@ function bygg(src){if(!src||!src.avregninger)return src;
  const b=src.basis||{};let tEgg=b.egg||0,tBrutto=b.brutto||0,tBrett=b.brett||0,mal=null;
  const hist=src.avregninger.slice().sort((x,y)=>x.dato<y.dato?-1:x.dato>y.dato?1:0).map(a=>{
   if("malBrett" in a)mal=a.malBrett;
-  const h={...a,mal,lokalEgg:a.lokalEgg||0};
+  const h={...a,mal};
   if(a.klasser){const k=a.klasser,sum=i=>Object.values(k).reduce((s,v)=>s+(v[i]||0),0);
    h.antall=sum(0);h.kg=a.kg??sum(1);h.sumEgg=sum(3);h.sumTillegg=(a.tillegg||[]).reduce((s,t)=>s+t[3],0);
-   h.vekt=h.kg/h.antall*1000;h.pris=a.brutto/h.antall;h.prisProd=a.brutto/(h.antall+h.lokalEgg);
+   h.vekt=h.kg/h.antall*1000;h.pris=a.brutto/h.antall;
    const ml=["M","L"].reduce((s,c)=>k[c]?[s[0]+k[c][0],s[1]+k[c][1]]:s,[0,0]);
    h.mlVekt=ml[0]?ml[1]/ml[0]*1000:null;h.brett=Math.round(ml[0]/30);
    if(!("malBrett" in a)&&ml[0]){const sats=(a.tillegg||[]).filter(t=>!/sm. industriegg/i.test(t[0])).reduce((x,t)=>x+t[2],0);
@@ -253,7 +259,7 @@ function bygg(src){if(!src||!src.avregninger)return src;
   return h;});
  const s=hist.at(-1),pall=rnd(tBrett/200,1);
  return{hist,sisteDatoLang:dLang(s.dato),
-  dev:hist.map(h=>({dato:dKort(h.dato),vekt:h.vekt,pris:h.pris,prisProd:h.prisProd})),
+  dev:hist.map(h=>({dato:dKort(h.dato),vekt:h.vekt,pris:h.pris})),
   siste:{antall:s.antall,brutto:s.brutto,prisEgg:s.pris,kostbasis:s.mal!=null?s.mal/30:null,mlVekt:s.mlVekt,brettUke:s.brett,malBrett:s.mal,vekt:s.vekt},
   pallTotalt:pall,totalt:{egg:tEgg,brutto:tBrutto,brett:tBrett,pall},miks:s.miks||[]};}
 const delta=(now,prev,d,unit)=>{if(prev==null||now==null)return"";const df=rnd(now-prev,d);
@@ -269,16 +275,23 @@ function renderHist(){const e=D.egg;if(!e||!e.hist){document.getElementById("nav
     h.tillegg.map(t=>`<tr><td>${t[0]}</td><td>${nf(t[1],2)}</td><td>${nf(t[2],2)}</td><td>${nf(t[3],2)}</td></tr>`).join("")+
     `<tr class="sum"><td>Sum tillegg</td><td></td><td></td><td>${nf(h.sumTillegg,2)}</td></tr></table>`;
    body+=`<div class="hsub">OPPGJØR</div><table class="htab"><tr><td>Beløp eks. MVA</td><td>${nf(h.eksMva,2)}</td></tr><tr><td>MVA</td><td>${nf(h.mva,2)}</td></tr><tr class="sum"><td>Brutto</td><td>${nf(h.brutto,2)}</td></tr></table>`;
-   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>M+L samlet vekt</td><td>${nf(h.mlVekt,1)} g</td></tr><tr><td>Snittpris per egg (brutto)</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Snittpris eks. MVA</td><td>${nf(h.eksMva/h.antall,2)} kr</td></tr><tr><td>Brett M+L</td><td>${nf(h.brett)}</td></tr>${h.lokalEgg?`<tr><td>Lokalsalg</td><td>${nf(h.lokalEgg)} egg</td></tr>`:""}${h.mal!=null?`<tr><td>Målpris</td><td>${nf(h.mal,2)} kr/brett</td></tr>`:""}</table>`;
+   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>M+L samlet vekt</td><td>${nf(h.mlVekt,1)} g</td></tr><tr><td>Snittpris per egg (brutto)</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Snittpris eks. MVA</td><td>${nf(h.eksMva/h.antall,2)} kr</td></tr><tr><td>Brett M+L</td><td>${nf(h.brett)}</td></tr>${h.mal!=null?`<tr><td>Målpris</td><td>${nf(h.mal,2)} kr/brett</td></tr>`:""}</table>`;
    body+=`<div class="hsub">STØRRELSESMIKS</div><div class="mixbar">${h.miks.map(m=>`<div style="width:${m[1]}%;background:${m[2]}"></div>`).join("")}</div><div class="legend">${h.miks.map(m=>`<span class="li"><span class="sw" style="background:${m[2]}"></span>${m[0]} <b>${nf(m[1],1)}%</b></span>`).join("")}</div>`;
    body+=`<div class="hnote">Avregning ${h.nr||"–"} · datert ${dFull(h.avregnet)} · utbetalt ${dFull(h.utbetalt)}</div>`;
   }else{
-   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>Snittpris per levert egg</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Snittpris per produsert egg</td><td>${nf(h.prisProd,2)} kr</td></tr><tr><td>Lokalsalg</td><td>${nf(h.lokalEgg)} egg</td></tr><tr><td>Målpris</td><td>${h.mal==null?"–":nf(h.mal,2)+" kr/brett"}</td></tr></table><div class="hnote">Eggklasser og oppgjør er ikke registrert for denne leveransen.</div>`;}
+   body+=`<div class="hsub">NØKKELTALL</div><table class="htab"><tr><td>Snittvekt per egg</td><td>${nf(h.vekt,1)} g</td></tr><tr><td>Snittpris per levert egg</td><td>${nf(h.pris,2)} kr</td></tr><tr><td>Målpris</td><td>${h.mal==null?"–":nf(h.mal,2)+" kr/brett"}</td></tr></table><div class="hnote">Eggklasser og oppgjør er ikke registrert for denne leveransen.</div>`;}
   return`<div class="hrow" id="h_${i}"><div class="hhead" data-i="${i}"><div><div class="hd">${dLang(h.dato)}</div><div class="hs">${h.antall?nf(h.antall)+" egg · "+nf(h.brutto)+" kr":"Nøkkeltall"}</div></div>
    <div class="hv"><b>${nf(h.vekt,1)} g</b>${delta(h.vekt,p&&p.vekt,1,"g")}</div><div class="hv"><b>${nf(h.pris,2)} kr</b>${delta(h.pris,p&&p.pris,2,"kr")}</div><span class="chev">▶</span></div><div class="hbody">${body}</div></div>`;}).reverse().join(""));
  document.querySelectorAll("#h_list .hhead").forEach(el=>el.onclick=()=>el.parentNode.classList.toggle("open"));}
 function openHist(i){tab("hist");document.querySelectorAll("#h_list .hrow").forEach(r=>r.classList.remove("open"));
  const el=document.getElementById("h_"+i);if(el){el.classList.add("open");el.scrollIntoView({block:"center"});}}
+function renderMargin(){const e=D.egg,f=D.for;if(!e||!e.hist||!f||!f.lev)return;
+ const H=e.hist.filter(h=>h.eksMva!=null);if(!H.length)return;const til=e.hist.at(-1).dato;
+ const egg=H.reduce((s,h)=>s+h.antall,0),inn=H.reduce((s,h)=>s+h.eksMva,0),L=f.lev.filter(l=>l.dato<=til),kost=L.reduce((s,l)=>s+l.netto,0);
+ if(!egg||!L.length)return;const fk=kost/egg,ik=inn/egg,m=ik-fk,kr=v=>nf(v,2)+'<span class="u"> kr</span>';
+ S("m_for",kr(fk));S("m_inn",kr(ik));S("m_mar",`<span style="color:${m<0?"#f87171":"var(--green)"}">${nf(m,2)}</span><span class="u"> kr</span>`);
+ S("m_note",`Per egg levert til Nortura, eks. mva. ${nf(kost)} kr kraftfôr (${L.length} leveranser t.o.m. ${dFull(til)}) mot ${nf(inn)} kr for ${nf(egg)} egg. Margin per brett: ${nf(m*30,2)} kr.`);
+ document.getElementById("f_margin").style.display="";}
 function tab(which){
  [["egg","Egg"],["hist","Hist"],["for","For"]].forEach(([k,n])=>{
   document.getElementById("tab"+n).classList.toggle("on",which===k);
@@ -289,7 +302,7 @@ document.getElementById("navHist").onclick=()=>tab("hist");
 document.getElementById("navFor").onclick=()=>tab("for");
 function init(){D=window.EGGLY_DATA||{};if(D.egg)D.egg=bygg(D.egg);if(D.for)D.for=byggFor(D.for);
  S("place",D.place||"Teigene Egg");S("date","Siste avregning · "+(D.egg?D.egg.sisteDatoLang:"–"));document.getElementById("upd").textContent=D.oppdatert||"";
- renderEgg();renderHist();renderFor();}
+ renderEgg();renderHist();renderFor();renderMargin();}
 init();
 </script>
 </body>
