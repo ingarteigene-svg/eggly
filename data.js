@@ -17,15 +17,121 @@ window.EGGLY_DATA = {
  oppdatert: "10.11.2026",
  place: "Teigene Egg · Hareid",
  egg: {
-  // Sum levert til og med 29.07.2026 (før detaljerte avregninger ble lagt inn)
-  basis: { egg: 734400, brutto: 1094657, brett: 14491 },
+  // Sum for leveransene under som bare har nøkkeltall (ingen detaljert avregning lagt inn)
+  basis: { egg: 388800, brutto: 650924.25, brett: 10687 },
   avregninger: [
+   {
+    nr: "5108202206", dato: "2026-06-05", avregnet: "2026-06-10", utbetalt: "2026-06-17",
+    klasser: {
+     XL:     [3, 0.18, 20.33, 3.72],
+     L:      [40, 2.58, 23.23, 59.93],
+     M:      [224, 12.54, 26.03, 326.36],
+     S:      [2065, 95.01, 19.71, 1872.61],
+     SI:     [8451, 354.94, 6.96, 2470.40],
+     SKITNE: [6, 0.29, 6.96, 1.99],
+     KLINK:  [6, 0.29, 6.96, 1.99],
+     BLOD:   [1, 0.06, null, 0],
+     KNEKK:  [4, 0.18, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 465.82, 0.58, 270.19],
+     ["Kvantumstillegg", 465.82, 0.25, 116.46],
+     ["Merpris små industriegg", 354.94, 5.90, 2094.16],
+     ["Trivselstiltak verpehøns", 465.82, 0.50, 232.90]
+    ],
+    kg: 466.06, eksMva: 7450.71, mva: 1117.62, brutto: 8568.33,
+    lokalEgg: 16020, malBrett: null
+   },
+   {
+    nr: "5108208925", dato: "2026-06-10", avregnet: "2026-06-22", utbetalt: "2026-06-22",
+    klasser: {
+     XL:     [42, 3.14, 20.33, 63.75],
+     L:      [478, 32.01, 23.23, 743.57],
+     M:      [3901, 218.34, 26.03, 5683.39],
+     S:      [26691, 1254.50, 19.71, 24726.16],
+     SI:     [33404, 1436.39, 6.96, 9997.28],
+     SKITNE: [108, 5.29, 6.96, 36.79],
+     KLINK:  [119, 5.97, 6.96, 41.56],
+     BLOD:   [15, 0.76, null, 0],
+     KNEKK:  [42, 2.12, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 2955.63, 0.58, 1714.28],
+     ["Kvantumstillegg", 2955.63, 0.25, 738.90],
+     ["Merpris små industriegg", 1436.39, 5.90, 8474.70],
+     ["Trivselstiltak verpehøns", 2955.63, 0.50, 1477.82]
+    ],
+    kg: 2958.50, eksMva: 53698.20, mva: 8054.74, brutto: 61752.94,
+    lokalEgg: 10790, malBrett: 46.31
+   },
+   {
+    nr: "5108210955", dato: "2026-06-17", avregnet: "2026-06-23", utbetalt: "2026-06-29",
+    klasser: {
+     XL:     [241, 18.06, 20.33, 367.14],
+     L:      [1384, 94.14, 23.23, 2186.80],
+     M:      [20927, 1171.87, 26.03, 30503.85],
+     S:      [65066, 3123.16, 19.71, 61557.40],
+     SI:     [8680, 373.24, 6.96, 2597.74],
+     SKITNE: [311, 15.86, 6.96, 110.37],
+     KLINK:  [441, 22.51, 6.96, 156.68],
+     BLOD:   [50, 2.56, null, 0],
+     KNEKK:  [100, 5.22, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 4818.83, 0.58, 2794.93],
+     ["Kvantumstillegg", 4818.83, 0.25, 1204.70],
+     ["Merpris små industriegg", 373.24, 5.90, 2202.11],
+     ["Trivselstiltak verpehøns", 4818.83, 0.50, 2409.43]
+    ],
+    kg: 4826.61, eksMva: 106091.15, mva: 15913.67, brutto: 122004.82,
+    lokalEgg: 16250, malBrett: 46.22
+   },
+   {
+    nr: "5108215344", dato: "2026-06-24", avregnet: "2026-06-29", utbetalt: "2026-07-06",
+    klasser: {
+     XL:     [393, 29.88, 20.33, 607.46],
+     L:      [1305, 87.43, 23.23, 2031.05],
+     M:      [36455, 2041.44, 26.03, 53138.76],
+     S:      [44142, 2162.95, 19.71, 42631.67],
+     SI:     [3110, 136.86, 6.96, 952.53],
+     SKITNE: [318, 16.85, 6.96, 117.26],
+     KLINK:  [527, 27.93, 6.96, 194.40],
+     BLOD:   [50, 2.66, null, 0],
+     KNEKK:  [100, 5.62, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 4503.34, 0.58, 2611.94],
+     ["Kvantumstillegg", 4503.34, 0.25, 1125.83],
+     ["Merpris små industriegg", 136.86, 5.90, 807.46],
+     ["Trivselstiltak verpehøns", 4503.34, 0.50, 2251.67]
+    ],
+    kg: 4511.62, eksMva: 106470.03, mva: 15970.50, brutto: 122440.53,
+    lokalEgg: 15860, malBrett: 46.08
+   },
+   {
+    nr: "5108223677", dato: "2026-07-01", avregnet: "2026-07-08", utbetalt: "2026-07-13",
+    klasser: {
+     XL:     [5, 0.38, 20.21, 7.74],
+     L:      [250, 16.13, 23.12, 372.97],
+     M:      [49117, 2734.15, 25.92, 70869.18],
+     S:      [33620, 1708.33, 19.60, 33483.29],
+     SI:     [405, 17.48, 6.85, 119.70],
+     SKITNE: [1872, 100.55, 6.85, 688.78],
+     KLINK:  [951, 50.39, 6.85, 345.20],
+     BLOD:   [40, 2.15, null, 0],
+     KNEKK:  [140, 7.51, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 4627.42, 0.58, 2683.91],
+     ["Kvantumstillegg", 4627.42, 0.25, 1156.86],
+     ["Merpris små industriegg", 17.48, 5.90, 103.10],
+     ["Trivselstiltak verpehøns", 4627.42, 0.50, 2313.73]
+    ],
+    kg: 4637.08, eksMva: 112144.46, mva: 16821.67, brutto: 128966.13,
+    lokalEgg: 13850, malBrett: 45.52
+   },
+
    // Eldre leveranser – bare nøkkeltall er registrert
-   { dato: "2026-06-05", vekt: 43.15, pris: 0.7934, prisProd: 0.3195, lokalEgg: 16020, malBrett: null },
-   { dato: "2026-06-10", vekt: 45.66, pris: 0.953,  prisProd: 0.8169, lokalEgg: 10790, malBrett: 46.31 },
-   { dato: "2026-06-17", vekt: 49.66, pris: 1.2552, prisProd: 1.0754, lokalEgg: 16250, malBrett: 46.22 },
-   { dato: "2026-06-24", vekt: 52.22, pris: 1.4171, prisProd: 1.1973, lokalEgg: 15860, malBrett: 46.08 },
-   { dato: "2026-07-01", vekt: 53.67, pris: 1.4927, prisProd: 1.2864, lokalEgg: 13850, malBrett: 45.52 },
    { dato: "2026-07-08", vekt: 54.85, pris: 1.5611, prisProd: 1.3343, lokalEgg: 16520, malBrett: 45.99 },
    { dato: "2026-07-15", vekt: 56.5,  pris: 1.6741, prisProd: 1.4992, lokalEgg: 11340, malBrett: 46.66 },
    { dato: "2026-07-22", vekt: 57.61, pris: 1.7141, prisProd: 1.548,  lokalEgg: 11590, malBrett: 47.42 },
