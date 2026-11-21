@@ -16,7 +16,7 @@
                M+L-egg eks. mva inkl. tillegg per kg, per brett på 30 egg.
 */
 window.EGGLY_DATA = {
- oppdatert: "10.11.2026",
+ oppdatert: "21.11.2026",
  place: "Teigene Egg · Hareid",
  egg: {
   avregninger: [
@@ -360,6 +360,28 @@ window.EGGLY_DATA = {
      ["Trivselstiltak verpehøns", 2691.12, 0.50, 1345.57]
     ],
     kg: 2697.06, eksMva: 67464.46, mva: 10119.67, brutto: 77584.13
+   },
+   {
+    nr: "5108345943", dato: "2026-11-16", avregnet: "2026-11-19", utbetalt: "2026-11-28",
+    klasser: {
+     XL:     [386, 28.89, 20.02, 578.28],
+     L:      [12786, 844.63, 22.92, 19358.97],
+     M:      [16260, 970.04, 25.72, 24949.45],
+     S:      [424, 21.54, 19.40, 417.86],
+     SI:     [38, 1.57, 6.65, 10.41],
+     SKITNE: [646, 40.31, 6.65, 268.09],
+     KLINK:  [1689, 106.43, 6.65, 707.78],
+     BLOD:   [14, 0.84, null, 0],
+     KNEKK:  [157, 9.80, null, 0]
+    },
+    tillegg: [
+     ["Distriktstilskudd", 2013.41, 0.58, 1167.77],
+     ["Klimakalkulator tillegg", 2013.41, 0.20, 402.69],
+     ["Kvantumstillegg", 2013.41, 0.25, 503.35],
+     ["Merpris små industriegg", 1.57, 5.90, 9.24],
+     ["Trivselstiltak verpehøns", 2013.41, 0.50, 1006.71]
+    ],
+    kg: 2024.05, eksMva: 49380.60, mva: 7407.09, brutto: 56787.69
    }
   ]
  },
